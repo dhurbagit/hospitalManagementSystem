@@ -29,10 +29,10 @@ class DoctorRequest extends FormRequest
             'license_no' => 'required|numeric',
             'gender' => 'required|string',
             'dept_id' => 'required|numeric',
-            'country' => 'required|string',
-            'province' => 'required',
-            'district' => 'required',
-            'municipality' => 'required',
+            'country_id' => 'required|string',
+            'province_id' => 'required',
+            'district_id' => 'required',
+            'municipality_id' => 'required',
             'address' => 'required',
             'ward_no' => 'required',
             'date_of_bith_ad' => 'required',
@@ -48,6 +48,8 @@ class DoctorRequest extends FormRequest
             'end_date_bs' => 'required',
             'start_date_ad' => 'required',
             'end_date_ad' => 'required',
+            'description' => 'required',
+             'password' => 'required|confirmed'
 
         ];
     }

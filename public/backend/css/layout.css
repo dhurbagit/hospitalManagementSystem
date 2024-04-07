@@ -56,3 +56,80 @@
   .ck.ck-editor__main div {
     height: 200px;
 }
+.profile_backgournd {
+  background-color: #476cda;
+}
+
+.image_place_holder img {
+  width: auto;
+  height: 164px;
+  margin-bottom: 15px;
+}
+
+.image_place_holder {
+  margin-left: 15px;
+  margin-top: 59px;
+  position: relative;
+  bottom: -70px;
+  text-align: center;
+  z-index: 99999;
+}
+.profile_name_info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.btn-border {
+  border: 1px solid #476cda;
+  background-color: transparent;
+  color: black;
+}
+.profile_name_info h3 {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.profile_name_info p {
+  color: whitesmoke;
+}
+.basic_detail {
+  margin-top: 102px;
+  background-color: whitesmoke;
+  padding: 15px;
+}
+
+.basic_detail ul {
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-left: 19px;
+  position: relative;
+}
+
+.basic_detail ul::before {
+  content: '';
+  height: 100%;
+  border-right: 1px dotted #afabab;
+  position: absolute;
+  left: -18.5px;
+  border-width: 2px;
+  top: 0;
+}
+.basic_detail ul li span {
+  font-weight: 700;
+  color: black;
+  margin-right: 6px;
+}
+
+.basic_detail ul li {
+  line-height: 28px;
+  list-style: none;
+}
+.basic_detail h3 {
+  font-size: 18px;
+  color: black;
+  font-weight: 300;
+  background-color: white;
+  padding: 15px;
+}

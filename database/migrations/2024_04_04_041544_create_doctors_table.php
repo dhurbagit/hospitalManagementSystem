@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('license_no');
-            $table->string('country');
-            $table->string('province');
-            $table->string('district');
-            $table->string('municipality');
+            $table->foreignId('country_id')->constrained('countries');
+            $table->foreignId('province_id')->constrained('provinces');
+            $table->foreignId('district_id')->constrained('districts');
+            $table->foreignId('municipality_id')->constrained('municipalities');
             $table->string('address');
             $table->string('ward_no');
             $table->string('gender');

@@ -12,4 +12,10 @@ class Department extends Model
     protected $guarded = []; //To protected mass assignment
 
     protected $table = 'departments';
+
+    public function doctor(){
+        return $this->hasMany(Doctor::class, 'dept_id', 'id');
+    }
+    
+    
 }

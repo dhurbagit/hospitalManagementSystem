@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -22,13 +23,22 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credential)) {
-            return redirect('dashboard');
+            // return redirect('dashboard');
+            $user = Auth::user();
+           
+            if ($user->roles->name == 'admin') {
              
-
-            if($request->has('remember')){
-                Cookie::queue('email', $request->email, 1440);
-                Cookie::queue('password', $request->password, 1440);
+                return redirect('dashboard');
             }
+            elseif ($user->roles->name == 'doctor'){
+               
+                return redirect('doctorDashboard');
+            }
+            else{
+                abort(419, 'Sorry wrong authentication');
+            }
+
+             
         } else {
             return redirect('login')->withErrors([
                 'email' => 'The provided credentials do not match our records.',
