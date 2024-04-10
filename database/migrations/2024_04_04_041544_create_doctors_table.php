@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('province_id')->constrained('provinces');
             $table->foreignId('district_id')->constrained('districts');
             $table->foreignId('municipality_id')->constrained('municipalities');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('address');
             $table->string('ward_no');
             $table->string('gender');

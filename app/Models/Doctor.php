@@ -10,7 +10,7 @@ class Doctor extends Model
     use HasFactory;
     protected $table = 'doctors';
     protected $fillable = [
-        'first_name', 'middle_name', 'last_name', 'license_no', 'country_id',
+        'first_name', 'middle_name', 'last_name', 'license_no', 'country_id', 'user_id',
         'province_id', 'district_id', 'municipality_id', 'address', 'ward_no', 'gender', 'date_of_bith_ad', 'date_of_bith_bs', 'image', 'dept_id'
     ];
 
@@ -42,5 +42,6 @@ class Doctor extends Model
     public function DoctorMunicipality(){
         return $this->belongsTo(Municipality::class, 'municipality_id', 'id');
     }
+    
  
 }

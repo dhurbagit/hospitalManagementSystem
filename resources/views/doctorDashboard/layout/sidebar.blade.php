@@ -32,9 +32,19 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Doctor</span></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('DoctorSchedule.index') }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Schedule</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('appoinment.index') }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Appoinment</span></a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
@@ -47,7 +57,7 @@
                 <a class="collapse-item" href="cards.html">Cards</a>
             </div>
         </div>
-    </li>
+    </li> --}}
 
      
     

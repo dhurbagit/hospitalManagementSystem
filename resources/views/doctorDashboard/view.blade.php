@@ -7,6 +7,7 @@
                     <div class="col-lg-2">
                         <div class="image_place_holder">
                             @if (isset($doctorInfo))
+                             
                                 <img src="{{ asset('uploads/'. $doctorInfo->image) }}" alt="">
                             @else
                                 <img src="{{ asset('backend/img/img_avatar.png') }}" alt="">

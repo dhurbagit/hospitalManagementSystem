@@ -50,14 +50,19 @@ class DoctorController extends Controller
         if ($request->hasFile('image')) {
             $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
         }
-        $doctor =  Doctor::create($input);
+        
 
+        
+        
+
+        $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
+        $input['role_id'] = 2;
+        $user = User::create($input);
+        $input['user_id'] = $user->id;
+        $doctor = Doctor::create($input);
         $input['doctor_id'] = $doctor->id;
         DoctorEducation::create($input);
         DoctorExperience::create($input);
-        $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
-        $input['role_id'] = 1;
-        User::create($input);
         return redirect()->route('doctor.index')->with('message', 'Doctor Record Successfully added');
         // } catch (\Exception $e) {
         // return redirect()->back()->with('error', $e->getMessage());

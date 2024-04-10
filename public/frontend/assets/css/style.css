@@ -1797,3 +1797,28 @@ section {
   text-align: center;
   font-size: 13px;
 }
+/* ************************************************ */
+.badge_wrapper {
+  display: inline-block;
+  background-color: gray;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  position: relative;
+  padding: 5px 15px;
+}
+
+.badge_wrapper input {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  opacity: 0;
+}
+
+.badge_wrapper label {
+  font-size: 12px;
+  color: white;
+}
+.badge_wrapper.bg_update {
+  background-color: black;
+}
