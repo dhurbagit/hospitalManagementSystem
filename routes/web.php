@@ -53,24 +53,25 @@ Route::middleware('guest')->group(function () {
 
 
 
+Route::middleware(['auth', 'doctorMiddleware'])->group(function () {
+    // doctorDashboard
+    Route::resource('/doctorDashboard', DoctorControllerD::class)->names('doctorDashboard');
+    Route::get('/getPorvince', [DoctorControllerD::class, 'getProvince'])->name('getProvince');
+    Route::get('/getDistrict/{id}', [DoctorControllerD::class, 'getDistrict'])->name('getDistrict');
+    Route::get('/getMunicipality/{id}', [DoctorControllerD::class, 'getMunicipality'])->name('getMunicipality');
+
+    // schedule 
+    Route::resource('/DoctorSchedule', DoctorScheduleController::class)->names('DoctorSchedule');
+
+    // Appoinment
+    Route::resource('/appoinment', AppoinmentController::class)->names('appoinment');
+    Route::post('appoinment-status', [AppoinmentController::class, 'status'])->name('appoinment.status');
+});
 
 
 
-// doctorDashboard
-Route::resource('/doctorDashboard', DoctorControllerD::class)->names('doctorDashboard');
-Route::get('/getPorvince', [DoctorControllerD::class, 'getProvince'])->name('getProvince');
-Route::get('/getDistrict/{id}', [DoctorControllerD::class, 'getDistrict'])->name('getDistrict');
-Route::get('/getMunicipality/{id}', [DoctorControllerD::class, 'getMunicipality'])->name('getMunicipality');
-
-// schedule 
-Route::resource('/DoctorSchedule', DoctorScheduleController::class)->names('DoctorSchedule');
-
-// Appoinment
-Route::resource('/appoinment', AppoinmentController::class)->names('appoinment');
-Route::post('appoinment-status', [AppoinmentController::class, 'status'])->name('appoinment.status');
 
 // Frontend home 
 Route::resource('/', HomeController::class)->names('home');
 Route::get('/getDoctor/{id}', [HomeController::class, 'getDoctor'])->name('getDoctor');
 Route::get('/getSchedule/{id}', [HomeController::class, 'getSchedule'])->name('getSchedule');
-

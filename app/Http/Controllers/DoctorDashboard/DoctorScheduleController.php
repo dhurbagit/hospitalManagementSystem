@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\DoctorDashboard;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Schedule;
+use App\Models\Appoinment;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class DoctorScheduleController extends Controller
@@ -17,8 +18,10 @@ class DoctorScheduleController extends Controller
     {
         $user_id = Auth::user();
         $doctorData = Doctor::where('user_id', $user_id->id)->first();
-        $list = Schedule::where('doctor_id', $doctorData->id)->get();
-        //    dd($user_id);
+        $list = Schedule::where('doctor_id', $doctorData->id)->with('appoinment')->get();
+         
+
+        //    dd($appoinment);
         return view('doctorDashboard.schedule.index', compact('list'));
     }
 

@@ -20,4 +20,8 @@ class Patient extends Model
         'appointment_message',
         'medical_history',
     ];
+
+    public function appoinment(){
+        return $this->belongsTo(Appoinment::class, 'patient_id');
+    }
 }

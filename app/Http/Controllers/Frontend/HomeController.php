@@ -17,8 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $approvedAppoinment = Appoinment::where('status', 'approved')->get();
         $departments =  Department::all();
-        return view('frontend.index', compact('departments'));
+        return view('frontend.index', compact('departments', 'approvedAppoinment'));
     }
 
     /**
@@ -43,7 +44,7 @@ class HomeController extends Controller
         $input['status'] = 'Pending';
         Appoinment::create($input);
 
-        return redirect()->route('home.index')->with('message', 'appoinment created');
+        return redirect()->route('home.index')->with('message', 'appoinment sucessfully send.');
 
 
     }

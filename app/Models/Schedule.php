@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-    use HasFactory;
+   use HasFactory;
 
-    protected $guarded = [];
+   protected $guarded = [];
 
-     
-    
+   public function appoinment()
+   {
+      return $this->hasOne(Appoinment::class, 'schedule_id');
+   }
 }

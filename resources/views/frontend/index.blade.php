@@ -27,6 +27,8 @@
     <link href="{{ asset('frontend/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
@@ -108,40 +110,24 @@
             <div class="carousel-inner" role="listbox">
 
                 <!-- Slide 1 -->
-                <div class="carousel-item active"
-                    style="background-image: url({{ asset('frontend/assets/img/slide/slide-1.jpg') }})">
-                    <div class="container">
-                        <h2>Welcome to <span>Medicio</span></h2>
-                        <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
-                            aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
-                            accusamus repellendus deleniti vel.</p>
-                        <a href="#about" class="btn-get-started scrollto">Read More</a>
+                @for ($i = 0; $i < $approvedAppoinment->count(); $i++)
+                
+                    <div class="carousel-item {{ ($i == 0) ? 'active' : ''}}"
+                        style="background-image: url({{ asset('frontend/assets/img/slide/slide-1.jpg') }})">
+                        <div class="container">
+                            <h2>Welcome to <span>Medicio</span></h2>
+                            @foreach ($approvedAppoinment as $data)
+                                <p><span class="badge bg-primary">{{ $data->patient->fullname }}</span> Apoinment has
+                                    Approved </p>
+                            @endforeach
+                            <a href="#about" class="btn-get-started scrollto">Read More</a>
+                        </div>
                     </div>
-                </div>
+                @endfor
 
-                <!-- Slide 2 -->
-                <div class="carousel-item"
-                    style="background-image: url({{ asset('frontend/assets/img/slide/slide-2.jpg') }})">
-                    <div class="container">
-                        <h2>Lorem Ipsum Dolor</h2>
-                        <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
-                            aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
-                            accusamus repellendus deleniti vel.</p>
-                        <a href="#about" class="btn-get-started scrollto">Read More</a>
-                    </div>
-                </div>
 
-                <!-- Slide 3 -->
-                <div class="carousel-item"
-                    style="background-image: url({{ asset('frontend/assets/img/slide/slide-3.jpg') }})">
-                    <div class="container">
-                        <h2>Sequi ea ut et est quaerat</h2>
-                        <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
-                            aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
-                            accusamus repellendus deleniti vel.</p>
-                        <a href="#about" class="btn-get-started scrollto">Read More</a>
-                    </div>
-                </div>
+
+
 
             </div>
 
@@ -458,7 +444,7 @@
                                 placeholder="Guardian Name" required>
                         </div>
                         <div class="col-md-4 form-group mt-3">
-                            <select name="" id="dept_name" class="form-select">
+                            <select name="" id="dept_name" class="form-select" required>
                                 <option value="">Select Department</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->dept_name }}</option>
@@ -468,7 +454,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 form-group mt-3">
-                            <select name="doctor_id" id="doctor_id" class="form-select">
+                            <select name="doctor_id" id="doctor_id" class="form-select" required>
                                 <option value="">Select Doctor</option>
                                 <option value="Doctor 1">Doctor 1</option>
                                 <option value="Doctor 2">Doctor 2</option>
@@ -494,7 +480,8 @@
                         {{-- <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div> --}}
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-success">Make an Appointment</button></div>
+                        <button type="submit" class="btn btn-success">Make an Appointment</button>
+                    </div>
                 </form>
             </div>
         </section><!-- End Appointment Section -->
@@ -1207,6 +1194,41 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     {{-- {{asset('frontend/')}} --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        // toster ja
+        @if (Session::has('message'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ session('message') }}");
+        @endif
+
+        @if (Session::has('error'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ session('error') }}");
+        @endif
+
+        @if (Session::has('info'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.info("{{ session('info') }}");
+        @endif
+
+        @if (Session::has('warning'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.warning("{{ session('warning') }}");
+        @endif
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -1224,7 +1246,7 @@
                         success: function(res) {
                             var doctor_id = $('#doctor_id');
                             doctor_id.empty().append(
-                                '<option value="" selected> Select your district </option>'
+                                '<option value="" selected> Select your Doctor </option>'
                             );
                             console.log(res);
                             res.forEach(function(getDoctor_id) {
