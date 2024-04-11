@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Appoinment;
-use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Schedule;
+use App\Models\Appoinment;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -43,6 +44,21 @@ class HomeController extends Controller
         $input['patient_id'] = $patient->id;
         $input['status'] = 'Pending';
         Appoinment::create($input);
+        
+        $data = [
+            'name' => 'John Doe',
+        ];
+       
+        $user['to'] = $request->email;
+     
+        Mail::send('frontend.emailform', $data, function ($message) use ($user) {
+        
+            $message->to($user['to']);
+     
+            $message->subject('Subject');
+             
+        });
+
 
         return redirect()->route('home.index')->with('message', 'appoinment sucessfully send.');
 

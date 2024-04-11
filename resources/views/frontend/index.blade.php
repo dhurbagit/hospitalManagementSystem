@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Medicio Bootstrap Template - Index</title>
+    <title>Medi-care</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('frontend/assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('frontend/assets/img/1logo.png') }}" rel="icon">
     <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -111,8 +111,8 @@
 
                 <!-- Slide 1 -->
                 @for ($i = 0; $i < $approvedAppoinment->count(); $i++)
-                
-                    <div class="carousel-item {{ ($i == 0) ? 'active' : ''}}"
+
+                    <div class="carousel-item {{ $i == 0 ? 'active' : '' }}"
                         style="background-image: url({{ asset('frontend/assets/img/slide/slide-1.jpg') }})">
                         <div class="container">
                             <h2>Welcome to <span>Medicio</span></h2>
@@ -456,9 +456,7 @@
                         <div class="col-md-4 form-group mt-3">
                             <select name="doctor_id" id="doctor_id" class="form-select" required>
                                 <option value="">Select Doctor</option>
-                                <option value="Doctor 1">Doctor 1</option>
-                                <option value="Doctor 2">Doctor 2</option>
-                                <option value="Doctor 3">Doctor 3</option>
+
                             </select>
                         </div>
                     </div>
@@ -475,9 +473,26 @@
                         <textarea class="form-control" name="medical_history" rows="5" placeholder="Medical History"></textarea>
                     </div>
                     <div class="my-3">
+
+
                         {{-- <div class="loading">Loading</div> --}}
                         {{-- <div class="error-message"></div> --}}
-                        {{-- <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div> --}}
+                        <div class="sent-message">
+                            @if (session()->has('message'))
+                                <div class="alert alert-success">
+                                    {{ session()->get('message') }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <script>
+                            const myTimeout = setTimeout(myGreeting, 9000);
+                            
+                            function myGreeting() {
+                              $('.sent-message').hide();
+                            }
+                            </script>
+
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success">Make an Appointment</button>
