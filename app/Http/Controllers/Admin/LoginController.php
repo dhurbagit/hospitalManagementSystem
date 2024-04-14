@@ -32,7 +32,7 @@ class LoginController extends Controller
             }
             elseif ($user->roles->name == 'doctor'){
                
-                return redirect('doctorDashboard');
+                return redirect('doctor-dashboard');
             }
             else{
                 abort(419, 'Sorry wrong authentication');
@@ -46,6 +46,25 @@ class LoginController extends Controller
         }
 
         // ->onlyInput('email')
+    }
+    public function loginCheck(){
+       
+        if (Auth::check()) {
+            $user = Auth::user();
+    
+            // Check the user's role or any other criteria
+            if ($user->roles->name == 'admin') {
+             
+                return redirect('dashboard');
+            }
+            elseif ($user->roles->name == 'doctor'){
+               
+                return redirect('doctorDashboard');
+            }
+            else{
+                return view('login.index');
+            }
+        }
     }
 
     /**

@@ -22,10 +22,7 @@ class DoctorControllerD extends Controller
     {
         $getUserId = Auth::user();
         $doctorInfo = Doctor::where('user_id', $getUserId->id)->first();
-
-        
-         
-       return view('doctorDashboard.view', compact('doctorInfo'));
+        return view('doctorDashboard.view', compact('doctorInfo'));
     }
 
     /**
@@ -51,8 +48,7 @@ class DoctorControllerD extends Controller
      */
     public function show(string $id)
     {
-        //
-        dd('show');
+        
     }
 
     /**
@@ -60,10 +56,10 @@ class DoctorControllerD extends Controller
      */
     public function edit(string $id)
     {
-        
+
         // dd('edit');
         $sessionId = Auth::user();
-         
+
         $editDoctor = Doctor::findOrFail($id);
 
         $getProvinceId = $editDoctor->province_id;
@@ -73,13 +69,13 @@ class DoctorControllerD extends Controller
         $getdistictId = $editDoctor->district_id;
         $getDistrictDetail = District::find($getdistictId);
         $getMunicipality = $getDistrictDetail->municipality;
-        
+
 
         $editDoctorEducation = DoctorEducation::where('doctor_id', $id)->get();
         // dd($editDoctorEducation);
         $editDoctorExperience = DoctorExperience::where('doctor_id', $id)->first();
         $editUserDetail = User::find($sessionId->id);
- 
+
 
         $province = DB::table('provinces')->get();
         $districts = DB::table('districts')->get();
@@ -99,9 +95,6 @@ class DoctorControllerD extends Controller
             'getDistrictList',
             'getMunicipality'
         ));
-
-
-        
     }
 
     /**
@@ -110,38 +103,38 @@ class DoctorControllerD extends Controller
     public function update(Request $request, string $id)
     {
         $userId = Auth::user();
-    //    dd($request->all());
-       $doctor = Doctor::find($id);
+        //    dd($request->all());
+        $doctor = Doctor::find($id);
 
-       $input = $request->all();
-       if($input['password'] == null)unset($input['password']);
+        $input = $request->all();
+        if ($input['password'] == null) unset($input['password']);
 
-       if ($request->hasFile('image')) {
-           $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
-       }
-       $doctor->update($input);
-       DoctorEducation::where('doctor_id', $id)->delete();
-       foreach($request->institute_name as $key => $value){
-                DoctorEducation::create([
-                    'institute_name' => $request->institute_name[$key],
-                    'medical_degree' => $request->medical_degree[$key],
-                    'graduation_year_bs' => $request->graduation_year_bs[$key],
-                    'graduation_year_ad' => $request->graduation_year_ad[$key],
-                    'specialization' => $request->specialization[$key],
-                    'doctor_id' => $id,
-                ]);
-       }
-    //    $doctorEducation = DoctorEducation::where('doctor_id', $doctor->id)->first();
-    //    $doctorEducation->update($input);
+        if ($request->hasFile('image')) {
+            $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
+        }
+        $doctor->update($input);
+        DoctorEducation::where('doctor_id', $id)->delete();
+        foreach ($request->institute_name as $key => $value) {
+            DoctorEducation::create([
+                'institute_name' => $request->institute_name[$key],
+                'medical_degree' => $request->medical_degree[$key],
+                'graduation_year_bs' => $request->graduation_year_bs[$key],
+                'graduation_year_ad' => $request->graduation_year_ad[$key],
+                'specialization' => $request->specialization[$key],
+                'doctor_id' => $id,
+            ]);
+        }
+        //    $doctorEducation = DoctorEducation::where('doctor_id', $doctor->id)->first();
+        //    $doctorEducation->update($input);
 
-       $doctorExperience = DoctorExperience::where('doctor_id', $doctor->id)->first();
-       $doctorExperience->update($input);
+        $doctorExperience = DoctorExperience::where('doctor_id', $doctor->id)->first();
+        $doctorExperience->update($input);
 
-       $user = User::find($userId->id);
-       $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
+        $user = User::find($userId->id);
+        $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
 
-       $user->update($input);
-       return redirect()->route('doctorDashboard.index')->with('message', "Record Updated Successfully!");
+        $user->update($input);
+        return redirect()->route('doctorDashboard.index')->with('message', "Record Updated Successfully!");
     }
 
     /**
@@ -149,26 +142,23 @@ class DoctorControllerD extends Controller
      */
     public function destroy(string $id)
     {
-        
-        dd('destroy');
 
+        dd('destroy');
     }
 
-    public function getProvince()
+    public function getProvince_d()
     {
         $provinces = DB::table('provinces')->get();
         return response()->json($provinces);
     }
-    public function getDistrict($id)
+    public function getDistrict_d($id)
     {
         $districts = DB::table('districts')->where('province_id', $id)->get();
         return response()->json($districts);
     }
-    public function getMunicipality($id)
+    public function getMunicipality_d($id)
     {
         $municipality = DB::table('municipalities')->where('districts_id', $id)->get();
         return response()->json($municipality);
     }
-
-
 }

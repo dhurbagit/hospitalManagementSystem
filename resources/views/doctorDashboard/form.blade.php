@@ -508,7 +508,7 @@
                 var countryValue = $(this);
                 if (countryValue.val() == '156') {
                     $.ajax({
-                        url: '{{ route('getProvince') }}',
+                        url: '{{ route('getProvince_d') }}',
                         type: 'GET',
                         datatype: 'JSON',
                         success: function(res) {
@@ -539,7 +539,7 @@
         $(document).ready(function() {
             $('#province_id').change(function() {
                 var PorvinceId = $(this).val();
-                var url = " {{ route('getDistrict', ':PorvinceId') }} ";
+                var url = " {{ route('getDistrict_d', ':PorvinceId') }} ";
                 url = url.replace(':PorvinceId', PorvinceId);
                 if (PorvinceId) {
                     $.ajax({
@@ -575,7 +575,7 @@
         $(document).ready(function() {
             $('#district_id').change(function() {
                 var DistrictId = $(this).val();
-                var url = " {{ route('getMunicipality', ':DistrictId') }} ";
+                var url = " {{ route('getMunicipality_d', ':DistrictId') }} ";
                 url = url.replace(':DistrictId', DistrictId);
                 if (DistrictId) {
                     $.ajax({

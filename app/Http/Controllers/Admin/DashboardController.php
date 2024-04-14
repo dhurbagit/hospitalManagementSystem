@@ -1,28 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\DoctorDashboard;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Appoinment;
+use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class AppoinmentController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        
-        $user = Auth::user();
-    //    dd($user);
-        $doctor = Doctor::where('user_id', $user->id)->first();
-        $appoinment =  Appoinment::where('doctor_id', $doctor->id)->get();
-        // dd($appoinment);
-        return view('doctorDashboard.appoinment.index', compact('appoinment'));
+        //
+        $department = Department::get();
+        $doctor = Doctor::get();
+        $user = User::get();
+       
+return view('index', compact('department', 'doctor', 'user'));
     }
 
     /**
@@ -71,13 +69,5 @@ class AppoinmentController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function status(Request $request){
-        // dd($request->all());
-        $input['status'] = $request->status;
-        $update = Appoinment::find($request->id);
-        $update->update($input);
-        return 'successfully updated';
     }
 }

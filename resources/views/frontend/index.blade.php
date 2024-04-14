@@ -90,7 +90,17 @@
                             <li><a href="#">Drop Down 4</a></li>
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    @auth
+
+                        @if (auth()->user()->roles->name == 'admin')
+                            <li><a class="nav-link scrollto" href="{{ route('dashboard') }}">Dashboard</a></li>
+                        @else
+                            <li><a class="nav-link scrollto" href="{{ route('doctorDashboard.index') }}">Dashboard</a></li>
+                        @endif
+                    @else
+                        <li><a class="nav-link scrollto" href="{{ route('login') }}">login</a></li>
+                    @endauth
+
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -111,15 +121,15 @@
 
                 <!-- Slide 1 -->
                 @for ($i = 0; $i < $approvedAppoinment->count(); $i++)
-
                     <div class="carousel-item {{ $i == 0 ? 'active' : '' }}"
                         style="background-image: url({{ asset('frontend/assets/img/slide/slide-1.jpg') }})">
                         <div class="container">
-                            <h2>Welcome to <span>Medicio</span></h2>
-                            @foreach ($approvedAppoinment as $data)
-                                <p><span class="badge bg-primary">{{ $data->patient->fullname }}</span> Apoinment has
-                                    Approved </p>
-                            @endforeach
+                            <h2>Welcome to <span>Medi Care</span></h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. </p>
+                            <br>
+                            <br>
                             <a href="#about" class="btn-get-started scrollto">Read More</a>
                         </div>
                     </div>
@@ -487,11 +497,11 @@
 
                         <script>
                             const myTimeout = setTimeout(myGreeting, 9000);
-                            
+
                             function myGreeting() {
-                              $('.sent-message').hide();
+                                $('.sent-message').hide();
                             }
-                            </script>
+                        </script>
 
                     </div>
                     <div class="text-center">

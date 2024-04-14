@@ -10,10 +10,18 @@
         <a href="{{ route('doctor.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> View Records</a>
     </div>
+
+
+
+
+
+
+
     <div class="row">
         <div class="col-lg-12">
             @if (isset($editDoctor))
-                <form id="regForm" action="{{ route('doctor.update', $editDoctor->id ) }}" method="POST" enctype="multipart/form-data">
+                <form id="regForm" action="{{ route('doctor.update', $editDoctor->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @method('PUT')
                 @else
                     <form id="regForm" action="{{ route('doctor.store') }}" method="POST" enctype="multipart/form-data">
@@ -23,249 +31,263 @@
 
             <!-- One "tab" for each step in the form: -->
             <div class="tab">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="first_name" class="col-sm-12 col-form-label">First Name</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="first_name" id="first_name"
-                                    value="{{ isset($editDoctor) ? $editDoctor->first_name : old('first_name') }}"
-                                    oninput="this.className = ''">
-                                @error('first_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                <div class="full_wrapper">
+                    <div class="row" style="justify-content: center">
+                        <div class="col-lg-3">
+                            <div class="thumbnail_image">
+                                <img src="http://127.0.0.1:8000/backend/img/undraw_profile.svg" alt="" id="placeholder_image">
+                                <span>Click to upload</span>
+                                <input type="file" onchange="loadFile(event)"
+                                                class="form-control {{ isset($editDoctor) ? 'not-required' : '' }}"
+                                                placeholder="image" name="image" value="{{ old('image') }}"
+                                                id="image" oninput="this.className = ''">
+                            </div>
+                        </div>
+                    </div>
+                    <fieldset class="fieldSet_wrapper">
+                        <legend>Basic Information</legend>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="first_name" id="first_name"
+                                            value="{{ isset($editDoctor) ? $editDoctor->first_name : old('first_name') }}"
+                                            oninput="this.className = ''" placeholder="First Name">
+                                        @error('first_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name"
+                                            value="{{ isset($editDoctor) ? $editDoctor->middle_name : old('middle_name') }}"
+                                            oninput="this.className = ''" placeholder="Middle Name">
+                                        @error('middle_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="last_name" id="last_name"
+                                            value="{{ isset($editDoctor) ? $editDoctor->last_name : old('last_name') }}"
+                                            oninput="this.className = ''" placeholder="Last Name">
+                                        @error('last_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="gender" id="gender"
+                                            value="{{ isset($editDoctor) ? $editDoctor->gender : old('gender') }}"
+                                            oninput="this.className = ''" placeholder="Gender">
+                                        @error('gender')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input readonly type="text" class="form-control" name="date_of_bith_ad"
+                                            value="{{ isset($editDoctor) ? $editDoctor->date_of_bith_ad : old('date_of_bith_ad') }}"
+                                            id="inputDOB_ad" oninput="this.className = ''"
+                                            placeholder="Date of Birth in AD">
+                                        @error('date_of_bith_ad')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" placeholder="Date of Birth in BS"
+                                            value="{{ isset($editDoctor) ? $editDoctor->date_of_bith_bs : old('date_of_bith_bs') }}"
+                                            name="date_of_bith_bs" id="nepali-datepicker" oninput="this.className = ''">
+                                        @error('date_of_bith_bs')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <input type="number" class="form-control" name="license_no" id="license_no"
+                                            value="{{ isset($editDoctor) ? $editDoctor->license_no : old('license_no') }}"
+                                            oninput="this.className = ''" placeholder="License No.">
+                                        @error('license_no')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldSet_wrapper">
+                        <legend>Address</legend>
+                        <div class="row">
+
+
+                            <div class="col-lg-4">
+                                <div class="form-group row select_style">
+                                     
+                                    <div class="col-sm-12">
+
+                                        <select name="dept_id" id="dept_id" class="form-control"
+                                            onchange="this.className = ''">
+                                            <option value="">--select Department--</option>
+                                            @foreach ($departmentList as $data)
+                                                <option value="{{ $data->id }}"
+                                                    {{ $data->id == isset($editDoctor->dept_id) ? 'selected' : '' }}>
+                                                    {{ $data->dept_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('dept_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row select_style">
+                                     
+                                    <div class="col-sm-12">
+                                        <select name="country_id" id="countryID" class="form-control">
+                                            <option value="">--Select Country--</option>
+                                            @foreach ($countryList as $data)
+                                                <option value="{{ $data->id }}"
+                                                    {{ $data->id == isset($editDoctor->country_id) ? 'selected' : '' }}>
+                                                    {{ $data->english_name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                        @error('country')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="middle_name" class="col-sm-12 col-form-label">Middle Name</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="middle_name" id="middle_name"
-                                    value="{{ isset($editDoctor) ? $editDoctor->middle_name : old('middle_name') }}"
-                                    oninput="this.className = ''">
-                                @error('middle_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                            <div class="col-lg-4">
+                                <div class="form-group row select_style">
+                                     
+                                    <div class="col-sm-12">
+                                        <select name="province_id" id="province_id" class="form-control"
+                                            oninput="this.className = ''">
+                                            <option value="">--select Province--</option>
+                                            @if (isset($province))
+                                                @foreach ($province as $data)
+                                                    <option value="{{ $data->id }}"
+                                                        {{ $data->id == $editDoctor->province_id ? 'selected' : '' }}>
+                                                        {{ $data->nepali_name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('province')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="last_name" class="col-sm-12 col-form-label">Last Name</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="last_name" id="last_name"
-                                    value="{{ isset($editDoctor) ? $editDoctor->last_name : old('last_name') }}"
-                                    oninput="this.className = ''">
-                                @error('last_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    
+                                    <div class="col-sm-12">
+                                        <select name="district_id" id="district_id" class="form-control"
+                                            oninput="this.className = ''">
+                                            <option value="">--select District--</option>
+
+
+                                            @if (isset($districts))
+                                                @foreach ($getDistrictList as $data)
+                                                    <option value="{{ $data->id }}"
+                                                        {{ $data->id == $editDoctor->district_id ? 'selected' : '' }}>
+                                                        {{ $data->nepali_name }}</option>
+                                                @endforeach
+                                            @endif
+
+
+                                        </select>
+                                        @error('district')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    
+                                    <div class="col-sm-12">
+                                        <select name="municipality_id" id="municipality_id" class="form-control"
+                                            oninput="this.className = ''">
+                                            <option value="">--select Municipality--</option>
+                                            @if (isset($municipalities))
+                                                @foreach ($getMunicipality as $data)
+                                                    <option value="{{ $data->id }}"
+                                                        {{ $data->id == $editDoctor->municipality_id ? 'selected' : '' }}>
+                                                        {{ $data->minicipality_name_nepali }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('municipality')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="address" id="address"
+                                            value="{{ isset($editDoctor) ? $editDoctor->address : old('address') }}"
+                                            oninput="this.className = ''" placeholder="Address">
+                                        @error('address')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                   
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="ward_no" id="ward_no"
+                                            value="{{ isset($editDoctor) ? $editDoctor->ward_no : old('ward_no') }}"
+                                            oninput="this.className = ''" placeholder="ward No.">
+                                        @error('ward_no')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="license_no" class="col-sm-12 col-form-label">License No.</label>
-                            <div class="col-sm-12">
-                                <input type="number" class="form-control" name="license_no" id="license_no"
-                                    value="{{ isset($editDoctor) ? $editDoctor->license_no : old('license_no') }}"
-                                    oninput="this.className = ''">
-                                @error('license_no')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="gender" class="col-sm-12 col-form-label">Gender</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="gender" id="gender"
-                                    value="{{ isset($editDoctor) ? $editDoctor->gender : old('gender') }}"
-                                    oninput="this.className = ''">
-                                @error('gender')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="dept_id" class="col-sm-12 col-form-label">Department</label>
-                            <div class="col-sm-12">
 
-                                <select name="dept_id" id="dept_id" class="form-control" onchange="this.className = ''">
-                                    <option value="">--select Department--</option>
-                                    @foreach ($departmentList as $data)
-                                        <option value="{{ $data->id }}"
-                                            {{ $data->id == isset($editDoctor->dept_id) ? 'selected' : '' }}>
-                                            {{ $data->dept_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('dept_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="country" class="col-sm-12 col-form-label">Country</label>
-                            <div class="col-sm-12">
-                                <select name="country_id" id="countryID" class="form-control">
-                                    <option value="">--Select Country--</option>
-                                    @foreach ($countryList as $data)
-                                        <option value="{{ $data->id }}"
-                                            {{ $data->id == isset($editDoctor->country_id) ? 'selected' : '' }}>
-                                            {{ $data->english_name }}</option>
-                                    @endforeach
-
-                                </select>
-                                @error('country')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="province" class="col-sm-12 col-form-label">Province</label>
-                            <div class="col-sm-12">
-                                <select name="province_id" id="province_id" class="form-control"
-                                    oninput="this.className = ''">
-                                    <option value="">--select Province--</option>
-                                    @if (isset($province))
-                                        @foreach ($province as $data)
-                                            <option value="{{ $data->id }}"
-                                                {{ $data->id == $editDoctor->province_id ? 'selected' : '' }}>
-                                                {{ $data->nepali_name }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                                @error('province')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="district" class="col-sm-12 col-form-label">District</label>
-                            <div class="col-sm-12">
-                                <select name="district_id" id="district_id" class="form-control"
-                                    oninput="this.className = ''">
-                                    <option value="">--select District--</option>
-
-
-                                    @if (isset($districts))
-                                        @foreach ($getDistrictList as $data)
-                                            <option value="{{ $data->id }}"
-                                                {{ $data->id == $editDoctor->district_id ? 'selected' : '' }}>
-                                                {{ $data->nepali_name }}</option>
-                                        @endforeach
-                                    @endif
-
-
-                                </select>
-                                @error('district')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="municipality_id" class="col-sm-12 col-form-label">Municipality</label>
-                            <div class="col-sm-12">
-                                <select name="municipality_id" id="municipality_id" class="form-control"
-                                    oninput="this.className = ''">
-                                    <option value="">--select Municipality--</option>
-                                    @if (isset($municipalities))
-                                        @foreach ($getMunicipality as $data)
-                                            <option value="{{ $data->id }}"
-                                                {{ $data->id == $editDoctor->municipality_id ? 'selected' : '' }}>
-                                                {{ $data->minicipality_name_nepali }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                                @error('municipality')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="address" class="col-sm-12 col-form-label">Address</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="address" id="address"
-                                    value="{{ isset($editDoctor) ? $editDoctor->address : old('address') }}"
-                                    oninput="this.className = ''">
-                                @error('address')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="ward_no" class="col-sm-12 col-form-label">ward No.</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="ward_no" id="ward_no"
-                                    value="{{ isset($editDoctor) ? $editDoctor->ward_no : old('ward_no') }}"
-                                    oninput="this.className = ''">
-                                @error('ward_no')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="inputDOB" class="col-sm-12 col-form-label">Date of Birth (AD)</label>
-                            <div class="col-sm-12">
-                                <input readonly type="date" class="form-control" name="date_of_bith_ad"
-                                    value="{{ isset($editDoctor) ? $editDoctor->date_of_bith_ad : old('date_of_bith_ad') }}"
-                                    id="inputDOB_ad" oninput="this.className = ''">
-                                @error('date_of_bith_ad')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="inputDOB" class="col-sm-12 col-form-label">Date of Birth (BS)</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" placeholder="Select Nepali Date"
-                                    value="{{ isset($editDoctor) ? $editDoctor->date_of_bith_bs : old('date_of_bith_bs') }}"
-                                    name="date_of_bith_bs" id="nepali-datepicker" oninput="this.className = ''">
-                                @error('date_of_bith_bs')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="image" class="col-sm-12 col-form-label">Image</label>
-                            <div class="col-sm-12">
-                                <input type="file" class="form-control {{ isset($editDoctor) ? 'not-required' : '' }}"
-                                    placeholder="image" name="image" value="{{ old('image') }}" id="image"
-                                    oninput="this.className = ''">
-                                @error('image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
             </div>
 
             <div class="tab">
@@ -426,7 +448,7 @@
 
             <div class="tab">
                 <div class="row">
-                    
+
                     <div class="col-lg-4">
                         <div class="form-group row">
                             <label for="email" class="col-sm-12 col-form-label">Email</label>
@@ -446,7 +468,7 @@
                             <div class="col-sm-12">
                                 <input type="password"
                                     class="form-control {{ isset($editUserDetail) ? 'not-required' : '' }}"
-                                    name="password" id="password"  oninput="this.className = ''">
+                                    name="password" id="password" oninput="this.className = ''">
                                 @error('password')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -459,7 +481,7 @@
                             <div class="col-sm-12">
                                 <input type="password"
                                     class="form-control {{ isset($editUserDetail) ? 'not-required' : '' }}"
-                                    name="password_confirmation"  id="password_confirmation"
+                                    name="password_confirmation" id="password_confirmation"
                                     oninput="this.className = ''">
                                 @error('password_confirmation')
                                     <div class="text-danger">{{ $message }}</div>
@@ -470,10 +492,10 @@
                 </div>
             </div>
 
-            <div style="overflow:auto;">
+            <div style="overflow:auto;" class="btn_group">
                 <div style="float:right;">
-                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <button type="button" class="btn btn-success" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
                 </div>
             </div>
 
@@ -499,12 +521,14 @@
             // show province when country nepal is selected
             $('#countryID').change(function() {
                 var countryValue = $(this);
+                console.log(countryValue.val());
                 if (countryValue.val() == '156') {
                     $.ajax({
                         url: '{{ route('getProvince') }}',
                         type: 'GET',
                         datatype: 'JSON',
                         success: function(res) {
+                         console.log(res);
                             var province = $('#province_id');
                             province.empty().append(
                                 '<option value="" selected> Select your district </option>');
@@ -687,7 +711,7 @@
             // This function will figure out which tab to display
             var x = document.getElementsByClassName("tab");
             // Exit the function if any field in the current tab is invalid:
-            console.log('lkjl');
+            
             if (n == 1 && !validateForm()) return false;
             // Hide the current tab:
             x[currentTab].style.display = "none";
@@ -754,5 +778,11 @@
             //... and adds the "active" class to the current step:
             x[n].className += " active";
         }
+    </script>
+    <script>
+        var loadFile = function(event) {
+            var image = document.getElementById('placeholder_image');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
     </script>
 @endpush
