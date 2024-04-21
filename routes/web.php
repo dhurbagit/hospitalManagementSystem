@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\DoctorDashboard\AppoinmentController;
 use App\Http\Controllers\DoctorDashboard\DoctorControllerD;
 use App\Http\Controllers\DoctorDashboard\DoctorScheduleController;
-
+use App\Models\DoctorEducation;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +42,8 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::get('/getDistrict/{id}', [DoctorController::class, 'getDistrict'])->name('getDistrict');
     Route::get('/getMunicipality/{id}', [DoctorController::class, 'getMunicipality'])->name('getMunicipality');
     Route::get('/getPorvince', [DoctorController::class, 'getProvince'])->name('getProvince');
+    Route::post('deleteEducation', [DoctorController::class, 'deleteEducation'])->name('deleteEducation');
+    Route::post('deleteExperience', [DoctorController::class, 'deleteExperience'])->name('deleteExperience');
 
     // user 
     Route::resource('/users', UserController::class)->names('users');
@@ -75,6 +77,8 @@ Route::middleware(['auth', 'doctorMiddleware'])->group(function () {
     // Appoinment
     Route::resource('/appoinment', AppoinmentController::class)->names('appoinment');
     Route::post('appoinment-status', [AppoinmentController::class, 'status'])->name('appoinment.status');
+
+    Route::post('deleteDoctorEducation', [DoctorControllerD::class, 'deleteDoctorEducation'])->name('deleteDoctorEducation');
 });
 
 

@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('license_no');
             $table->foreignId('country_id')->constrained('countries');
-            $table->foreignId('province_id')->constrained('provinces');
-            $table->foreignId('district_id')->constrained('districts');
-            $table->foreignId('municipality_id')->constrained('municipalities');
+            $table->foreignId('province_id')->constrained('provinces')->default(0);
+            $table->foreignId('district_id')->constrained('districts')->default(0);
+            $table->foreignId('municipality_id')->constrained('municipalities')->default(0);
             $table->foreignId('user_id')->constrained('users');
             $table->string('address');
             $table->string('ward_no');

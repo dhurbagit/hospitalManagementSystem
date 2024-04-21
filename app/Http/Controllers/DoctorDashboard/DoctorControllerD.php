@@ -22,7 +22,11 @@ class DoctorControllerD extends Controller
     {
         $getUserId = Auth::user();
         $doctorInfo = Doctor::where('user_id', $getUserId->id)->first();
+        // dd($doctorInfo);
+
         return view('doctorDashboard.view', compact('doctorInfo'));
+
+       
     }
 
     /**
@@ -64,11 +68,11 @@ class DoctorControllerD extends Controller
 
         $getProvinceId = $editDoctor->province_id;
         $getProvinceDetail = Province::find($getProvinceId);
-        $getDistrictList = $getProvinceDetail->districts;
+        $getDistrictList = $getProvinceDetail->districts ?? [];
 
         $getdistictId = $editDoctor->district_id;
         $getDistrictDetail = District::find($getdistictId);
-        $getMunicipality = $getDistrictDetail->municipality;
+        $getMunicipality = $getDistrictDetail->municipality ?? [];
 
 
         $editDoctorEducation = DoctorEducation::where('doctor_id', $id)->get();
@@ -160,5 +164,10 @@ class DoctorControllerD extends Controller
     {
         $municipality = DB::table('municipalities')->where('districts_id', $id)->get();
         return response()->json($municipality);
+    }
+
+    public function deleteDoctorEducation(Request $request){
+        DoctorEducation::find($request->id)->delete();
+        return 'successfully delete';
     }
 }

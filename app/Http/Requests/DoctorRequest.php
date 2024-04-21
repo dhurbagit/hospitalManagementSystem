@@ -30,14 +30,14 @@ class DoctorRequest extends FormRequest
             'gender' => 'required|string',
             'dept_id' => 'required|numeric',
             'country_id' => 'required|string',
-            'province_id' => 'required',
-            'district_id' => 'required',
-            'municipality_id' => 'required',
+            'province_id' => 'nullable',
+            'district_id' => 'nullable',
+            'municipality_id' => 'nullable',
             'address' => 'required',
             'ward_no' => 'required',
             'date_of_bith_ad' => 'required',
             'date_of_bith_bs' => 'required',
-            'image' => 'required',
+            // 'image' => 'required',
             'institute_name' => 'required',
             'medical_degree' => 'required',
             'graduation_year_bs' => 'required',
@@ -49,7 +49,7 @@ class DoctorRequest extends FormRequest
             'start_date_ad' => 'required',
             'end_date_ad' => 'required',
             'description' => 'required',
-             'password' => 'required|confirmed'
+             'password' => Request()->method == 'POST' ?  'required|confirmed' : 'nullable'
 
         ];
     }

@@ -17,11 +17,11 @@ class Doctor extends Model
   
     public function education()
     {
-        return $this->hasOne(DoctorEducation::class, 'doctor_id', 'id');
+        return $this->hasMany(DoctorEducation::class, 'doctor_id', 'id');
     }
     public function experience()
     {
-        return $this->hasOne(DoctorExperience::class, 'doctor_id', 'id');
+        return $this->hasMany(DoctorExperience::class, 'doctor_id', 'id');
     }
 
     public function Department(){

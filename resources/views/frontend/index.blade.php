@@ -90,7 +90,7 @@
                             <li><a href="#">Drop Down 4</a></li>
                         </ul>
                     </li>
-                    @auth
+                    {{-- @auth
 
                         @if (auth()->user()->roles->name == 'admin')
                             <li><a class="nav-link scrollto" href="{{ route('dashboard') }}">Dashboard</a></li>
@@ -99,7 +99,7 @@
                         @endif
                     @else
                         <li><a class="nav-link scrollto" href="{{ route('login') }}">login</a></li>
-                    @endauth
+                    @endauth --}}
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

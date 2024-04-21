@@ -26,17 +26,17 @@
         Interface
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item {{(request()->routeIs('department.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('department.index') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Department</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{(request()->routeIs('doctor.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('doctor.index') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Doctor</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{(request()->routeIs('users.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>User</span></a>

@@ -116,7 +116,7 @@
                                     <option value="">--Select Country--</option>
                                     @foreach ($countryList as $data)
                                         <option value="{{ $data->id }}"
-                                            {{ $data->id == isset($editDoctor->country_id) ? 'selected' : '' }}>
+                                            {{ $data->id == isset($editDoctor->country_id) && $data->id == $editDoctor->country_id ? 'selected' : '' }}>
                                             {{ $data->english_name }}</option>
                                     @endforeach
 
@@ -267,174 +267,187 @@
 
             <div class="tab">
                 @foreach ($editDoctorEducation as $education)
-                    
-               
-                <div class="institure_detail">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group row">
-                                <label for="institute_name" class="col-sm-12 col-form-label">Institute Name</label>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" name="institute_name[]" id="institute_name"
-                                        value="{{ isset($education) ? $education->institute_name : old('institute_name') }}"
-                                        oninput="this.className = ''">
-                                    @error('institute_name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                    <div class="institure_detail">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    <label for="institute_name" class="col-sm-12 col-form-label">Institute Name</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="institute_name[]"
+                                            id="institute_name"
+                                            value="{{ isset($education) ? $education->institute_name : old('institute_name') }}"
+                                            oninput="this.className = ''">
+                                        @error('institute_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group row">
-                                <label for="medical_degree" class="col-sm-12 col-form-label">Medical Degree</label>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" name="medical_degree[]" id="medical_degree"
-                                        value="{{ isset($education) ? $education->medical_degree : old('medical_degree') }}"
-                                        oninput="this.className = ''">
-                                    @error('medical_degree')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    <label for="medical_degree" class="col-sm-12 col-form-label">Medical Degree</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="medical_degree[]"
+                                            id="medical_degree"
+                                            value="{{ isset($education) ? $education->medical_degree : old('medical_degree') }}"
+                                            oninput="this.className = ''">
+                                        @error('medical_degree')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group row">
-                                <label for="graduation_year_bs" class="col-sm-12 col-form-label">Graduation Year
-                                    BS</label>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" name="graduation_year_bs[]"
-                                        value="{{ isset($education) ? $education->graduation_year_bs : old('graduation_year_bs') }}"
-                                        id="graduation_year_bs" oninput="this.className = ''">
-                                    @error('graduation_year_bs')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    <label for="graduation_year_bs" class="col-sm-12 col-form-label">Graduation Year
+                                        BS</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="graduation_year_bs[]"
+                                            value="{{ isset($education) ? $education->graduation_year_bs : old('graduation_year_bs') }}"
+                                            id="graduation_year_bs" oninput="this.className = ''">
+                                        @error('graduation_year_bs')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group row">
-                                <label for="graduation_year_ad" class="col-sm-12 col-form-label">Graduation Year
-                                    AD</label>
-                                <div class="col-sm-12">
-                                    <input type="date" class="form-control" name="graduation_year_ad[]"
-                                        value="{{ isset($education) ? $education->graduation_year_ad : old('graduation_year_ad') }}"
-                                        id="graduation_year_ad" oninput="this.className = ''">
-                                    @error('graduation_year_ad')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    <label for="graduation_year_ad" class="col-sm-12 col-form-label">Graduation Year
+                                        AD</label>
+                                    <div class="col-sm-12">
+                                        <input type="date" class="form-control" name="graduation_year_ad[]"
+                                            value="{{ isset($education) ? $education->graduation_year_ad : old('graduation_year_ad') }}"
+                                            id="graduation_year_ad" oninput="this.className = ''">
+                                        @error('graduation_year_ad')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group row">
-                                <label for="specialization" class="col-sm-12 col-form-label">Specialization</label>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" name="specialization[]" id="specialization"
-                                        value="{{ isset($education) ? $education->specialization : old('specialization') }}"
-                                        oninput="this.className = ''">
-                                    @error('specialization')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                            <div class="col-lg-4">
+                                <div class="form-group row">
+                                    <label for="specialization" class="col-sm-12 col-form-label">Specialization</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="specialization[]"
+                                            id="specialization"
+                                            value="{{ isset($education) ? $education->specialization : old('specialization') }}"
+                                            oninput="this.className = ''">
+                                        @error('specialization')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
 
+
+                        </div>
                     </div>
-                </div>
+                    <a class="deleteEducatioon" data-id="{{ $education->id }}" href="javascript:void(0)"><i
+                        class="fas fa-trash-alt"></i></a>
                 @endforeach
                 <div id="wrapper_one">
-                    
+
                 </div>
                 <a href="javascript:void(0)" id="add" class="btn btn-success">add</a>
             </div>
 
             <div class="tab">
+                <div class="workExperience_detail">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label for="organization_name" class="col-sm-12 col-form-label">Organization Name</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" name="organization_name[]"
+                                        value="{{ isset($editDoctorExperience) ? $editDoctorExperience->organization_name : old('organization_name[]') }}"
+                                        id="organization_name" oninput="this.className = ''">
+                                    @error('organization_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label for="start_date_bs" class="col-sm-12 col-form-label">Start Date Bs</label>
+                                <div class="col-sm-12 bs_start_dynamic_class_experience">
+                                    <input type="text" class="form-control" name="start_date_bs[]" id="start_date_bs"
+                                        value="{{ isset($editDoctorExperience) ? $editDoctorExperience->start_date_bs : old('start_date_bs[]') }}"
+                                        oninput="this.className = ''">
+                                    @error('start_date_bs')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label for="end_date_bs" class="col-sm-12 col-form-label">End Date Bs</label>
+                                <div class="col-sm-12 bs_end_dynamic_class_experience">
+                                    <input type="text" class="form-control" name="end_date_bs[]" id="end_date_bs"
+                                        value="{{ isset($editDoctorExperience) ? $editDoctorExperience->end_date_bs : old('end_date_bs[]') }}"
+                                        oninput="this.className = ''">
+                                    @error('end_date_bs')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label for="start_date_ad" class="col-sm-12 col-form-label">Start Date AD</label>
+                                <div class="col-sm-12 ad_start_dynamic_class_experience">
+                                    <input type="date" readonly class="form-control" name="start_date_ad[]"
+                                        value="{{ isset($editDoctorExperience) ? $editDoctorExperience->start_date_ad : old('start_date_ad[]') }}"
+                                        id="start_date_ad" oninput="this.className = ''">
+                                    @error('start_date_ad')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label for="end_date_ad" class="col-sm-12 col-form-label">End Date AD</label>
+                                <div class="col-sm-12 ad_end_dynamic_class_experience">
+                                    <input type="date" readonly class="form-control" name="end_date_ad[]"
+                                        value="{{ isset($editDoctorExperience) ? $editDoctorExperience->end_date_ad : old('end_date_ad[]') }}"
+                                        id="end_date_ad" oninput="this.className = ''">
+                                    @error('end_date_ad')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-12">
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-12 col-form-label">Description</label>
+                                <div class="col-sm-12">
+                                    <textarea name="description[]" id="" class="form-control" cols="30" rows="10">{{ isset($editDoctorExperience) ? $editDoctorExperience->description : old('description[]') }}</textarea>
+                                    @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+                <div id="wrapper_two">
+
+                </div>
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="organization_name" class="col-sm-12 col-form-label">Organization Name</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="organization_name"
-                                    value="{{ isset($editDoctorExperience) ? $editDoctorExperience->organization_name : old('organization_name') }}"
-                                    id="organization_name" oninput="this.className = ''">
-                                @error('organization_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="start_date_bs" class="col-sm-12 col-form-label">Start Date Bs</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="start_date_bs" id="start_date_bs"
-                                    value="{{ isset($editDoctorExperience) ? $editDoctorExperience->start_date_bs : old('start_date_bs') }}"
-                                    oninput="this.className = ''">
-                                @error('start_date_bs')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="end_date_bs" class="col-sm-12 col-form-label">End Date Bs</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name="end_date_bs" id="end_date_bs"
-                                    value="{{ isset($editDoctorExperience) ? $editDoctorExperience->end_date_bs : old('end_date_bs') }}"
-                                    oninput="this.className = ''">
-                                @error('end_date_bs')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="start_date_ad" class="col-sm-12 col-form-label">Start Date AD</label>
-                            <div class="col-sm-12">
-                                <input type="date" readonly class="form-control" name="start_date_ad"
-                                    value="{{ isset($editDoctorExperience) ? $editDoctorExperience->start_date_ad : old('start_date_ad') }}"
-                                    id="start_date_ad" oninput="this.className = ''">
-                                @error('start_date_ad')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group row">
-                            <label for="end_date_ad" class="col-sm-12 col-form-label">End Date AD</label>
-                            <div class="col-sm-12">
-                                <input type="date" readonly class="form-control" name="end_date_ad"
-                                    value="{{ isset($editDoctorExperience) ? $editDoctorExperience->end_date_ad : old('end_date_ad') }}"
-                                    id="end_date_ad" oninput="this.className = ''">
-                                @error('end_date_ad')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-lg-12">
-                        <div class="form-group row">
-                            <label for="description" class="col-sm-12 col-form-label">Description</label>
-                            <div class="col-sm-12">
-                                <textarea name="description" id="" class="form-control" cols="30" rows="10">{{ isset($editDoctorExperience) ? $editDoctorExperience->description : old('description') }}</textarea>
-                                @error('description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                        <a href="javascript:void(0)" id="addExperience" class="btn btn-success">add</a>
                     </div>
-
                 </div>
             </div>
 
             <div class="tab">
                 <div class="row">
- 
+
                     <div class="col-lg-4">
                         <div class="form-group row">
                             <label for="email" class="col-sm-12 col-form-label">Email</label>
@@ -513,8 +526,8 @@
                         datatype: 'JSON',
                         success: function(res) {
                             var province = $('#province_id');
-                            province.empty().append(
-                                '<option value="" selected> Select your district </option>');
+                            province.removeAttr('disabled').empty().append(
+                                '<option value="" selected> Select your Porvince </option>');
                             res.forEach(function(getProv) {
                                 province.append('<option value=' + getProv['id'] + '>' +
                                     getProv['nepali_name'] + '</option>');
@@ -523,9 +536,16 @@
 
                     });
                 } else {
-                    var province = $('#province');
-                    province.empty().append(
-                        '<option value="" selected> Select your district </option>');
+                    var province = $('#province_id');
+                    var district = $('#district_id');
+                    var municipality = $('#municipality_id');
+                    district.attr('disabled', 'disabled');
+                    municipality.attr('disabled', 'disabled');
+
+                    province.attr('disabled', 'disabled').empty().append(
+                        '<option value="" selected> Select your Porvince </option>');
+
+
                 }
             });
 
@@ -548,8 +568,8 @@
                         datatype: 'JSON',
                         success: function(res) {
                             var district = $('#district_id');
-                            district.empty().append(
-                                '<option value="" selected> Select your district </option>'
+                            district.removeAttr('disabled').empty().append(
+                                '<option  value="" selected> Select your district </option>'
                             );
                             console.log(res);
                             res.forEach(function(getDistrict) {
@@ -583,13 +603,13 @@
                         type: 'GET',
                         datatype: 'JSON',
                         success: function(res) {
-                            var district = $('#municipality_id');
-                            district.empty().append(
-                                '<option value="" selected> Select your district </option>'
+                            var municipality = $('#municipality_id');
+                            municipality.removeAttr('disabled').empty().append(
+                                '<option value="" selected> Select your Municipality </option>'
                             );
-                            console.log(res);
+
                             res.forEach(function(getMunicipality) {
-                                district.append(
+                                municipality.append(
                                     '<option value="' + getMunicipality[
                                         'minicipality_code'] + '">' +
                                     getMunicipality['minicipality_name_nepali'] +
@@ -599,11 +619,11 @@
 
                         },
                         error: function() {
-                            alert('Error Fetching District !!!');
+                            alert('Error Fetching Municipality !!!');
                         }
                     });
                 } else {
-                    $('#district').empty().append('<option value="">Select Your District</option>');
+                    $('#district').empty().append('<option value="">Select Your Municipality</option>');
                 }
             });
         })
@@ -720,7 +740,7 @@
             w = x[currentTab].querySelectorAll("textarea");
             // A loop that checks every select field in the current tab:
             for (i = 0; i < z.length; i++) {
-                if (z[i].value == '') {
+                if (z[i].value == ''&& !z[i].disabled) {
                     z[i].className += " invalid";
                     // and set the current valid status to false
                     valid = false;
@@ -763,18 +783,65 @@
         }
     </script>
     <script>
-        
         $("#add").click(function() {
             var checkbox = $('<input type="checkbox">');
 
-           
+
             $(".tab > .institure_detail:last").clone()
-            .append( $('<a id="glyphicon-remove" href="#">Remove</a>') )
-            .appendTo("#wrapper_one");
+                .append($('<a id="glyphicon-remove" href="#">Remove</a>'))
+                .appendTo("#wrapper_one");
         });
 
         $(document).on('click', '#glyphicon-remove', function() {
             $(this).parent().remove();
         });
     </script>
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+
+            var cit = $('#countryID').val();
+            if (cit == 156) {
+                var province = $('#province_id');
+                province.removeAttr('disabled');
+                var district = $('#district_id');
+                district.removeAttr('disabled');
+                var municipality = $('#municipality_id');
+                municipality.removeAttr('disabled');
+            } else {
+                var province = $('#province_id');
+                province.attr('disabled', 'disabled');
+                var district = $('#district_id');
+                district.attr('disabled', 'disabled');
+                var municipality = $('#municipality_id');
+                municipality.attr('disabled', 'disabled');
+            }
+        })
+    </script>
+
+<script>
+    $('.deleteEducatioon').click(function() {
+        
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: "post",
+            url: "{{ route('deleteDoctorEducation') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: id,
+            },
+            success: function(res) {
+                toastr.success(res);
+                window.location.reload();
+            }
+        });
+    });
+</script>
+<script src="{{asset('backend/js/script.js')}}"></script>
 @endpush

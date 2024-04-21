@@ -1,61 +1,65 @@
 /* Style the form */
- 
-  
-  /* Style the input fields */
-  input {
-    
-    width: 100%;
-    display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6e707e;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #d1d3e2;
-    border-radius: .35rem;;
-  }
-  
-  /* Mark input boxes that gets an error on validation: */
-  input.invalid {
-    background-color: #ffdddd;
-  }
-  
-  /* Hide all steps by default: */
-  .tab {
-    display: none;
-  }
-  
-  /* Make circles that indicate the steps of the form: */
-  .step {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbbbbb;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5;
-  }
-  
-  /* Mark the active step: */
-  .step.active {
-    opacity: 1;
-  }
-  
-  /* Mark the steps that are finished and valid: */
-  .step.finish {
-    background-color: #04AA6D;
-  }
-  #dataTable p{
-    margin:0;
-  }
-  .ck.ck-editor__main div {
-    height: 200px;
+
+
+/* Style the input fields */
+input {
+
+  width: 100%;
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6e707e;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #d1d3e2;
+  border-radius: .35rem;
+  ;
 }
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+
+#dataTable p {
+  margin: 0;
+}
+
+.ck.ck-editor__main div {
+  height: 200px;
+}
+
 .profile_backgournd {
   background-color: #476cda;
 }
@@ -74,17 +78,20 @@
   text-align: center;
   z-index: 99999;
 }
+
 .profile_name_info {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: end;
 }
+
 .btn-border {
   border: 1px solid #476cda;
   background-color: transparent;
   color: black;
 }
+
 .profile_name_info h3 {
   color: white;
   font-weight: 700;
@@ -94,6 +101,7 @@
 .profile_name_info p {
   color: whitesmoke;
 }
+
 .basic_detail {
   margin-top: 102px;
   background-color: whitesmoke;
@@ -105,6 +113,7 @@
   margin-bottom: 0;
   margin-left: 19px;
   position: relative;
+  margin-bottom: 15px;
 }
 
 .basic_detail ul::before {
@@ -116,6 +125,7 @@
   border-width: 2px;
   top: 0;
 }
+
 .basic_detail ul li span {
   font-weight: 700;
   color: black;
@@ -126,6 +136,7 @@
   line-height: 28px;
   list-style: none;
 }
+
 .basic_detail h3 {
   font-size: 18px;
   color: black;
@@ -133,6 +144,7 @@
   background-color: white;
   padding: 15px;
 }
+
 #wrapper_one .institure_detail {
   background-color: #efefef;
   padding: 15px;
@@ -143,17 +155,24 @@
 .full_wrapper {
   margin-top: 150px;
   background-color: whitesmoke;
-  padding:25px;
+  padding: 25px;
 }
+
 .thumbnail_image {
-  margin-top: -152px;
+  margin-top: -77px;
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: brown;
+  cursor: pointer;
 }
+
 .thumbnail_image img {
   width: 100%;
 }
+
 fieldset.fieldSet_wrapper {
   border: 1px solid gainsboro;
   padding: 15px;
@@ -164,45 +183,91 @@ fieldset.fieldSet_wrapper legend {
   font-size: 16px;
   margin-bottom: 0;
 }
+
 .thumbnail_image input[type='file'] {
   position: absolute;
   height: 100%;
   top: 0;
   opacity: 0;
-} 
+  cursor: pointer;
+}
 
 .thumbnail_image span {
-    position: absolute;
-    top: 44%;
-    right: 0;
-    transform: translate(-66%, 0%);
-    opacity: 0.5;
+  position: absolute;
+  top: 44%;
+  right: 0;
+  transform: translate(-66%, 0%);
+  opacity: 0.5;
 }
 
-.select_style select{
+.select_style select {
   display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6e707e;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #d1d3e2;
-    border-radius: .35rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6e707e;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #d1d3e2;
+  border-radius: .35rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
 .btn_group {
   margin-top: 25px;
 }
-.btn_group > div {
+
+.btn_group>div {
   display: flex;
   align-items: center;
   justify-content: center;
   float: none !important;
 }
-.btn_group > div button{
+
+.btn_group>div button {
   margin-right: 15px;
+}
+
+.cs_breadcrumb {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+}
+
+.cs_breadcrumb>div:first-of-type {
+  display: flex;
+  align-items: center;
+}
+
+.cs_breadcrumb>div>a {
+  text-decoration: none;
+}
+
+.cs_breadcrumb>div:first-of-type a {
+  margin-right: 10px;
+  color: #466cd9;
+}
+
+.cs_breadcrumb>div:first-of-type span {
+  margin-right: 10px;
+}
+
+.cs_breadcrumb>div:first-of-type>a:last-of-type {
+  pointer-events: none;
+}
+
+.pagination_style {
+  display: flex;
+  justify-content: center;
+}
+
+.required_label{
+  display: none;
+}
+.active_error + .required_label{
+  display: block !important;
+  color:red;
 }
