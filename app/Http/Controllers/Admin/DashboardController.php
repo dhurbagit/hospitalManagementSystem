@@ -19,8 +19,8 @@ class DashboardController extends Controller
         $department = Department::get();
         $doctor = Doctor::get();
         $user = User::get();
-       
-return view('index', compact('department', 'doctor', 'user'));
+
+        return view('index', compact('department', 'doctor', 'user'));
     }
 
     /**

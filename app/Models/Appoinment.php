@@ -15,6 +15,7 @@ class Appoinment extends Model
         'description',
         'status',
         'nonte',
+        'time_range'
     ];
 
     public function schedule(){

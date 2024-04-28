@@ -1220,6 +1220,8 @@
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     {{-- {{asset('frontend/')}} --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    </head>
     <script>
         // toster ja
         @if (Session::has('message'))
@@ -1305,7 +1307,7 @@
 
                 var url = " {{ route('getSchedule', ':doctor_id') }} ";
                 url = url.replace(':doctor_id', doctor_id);
-                if (dept_name) {
+                if (doctor_id) {
                     $.ajax({
                         url: url,
                         type: 'GET',
@@ -1315,16 +1317,30 @@
                             schedule.empty(
                                 '<div class="badge_wrapper"><label for="schedule_time"></label> <input type="radio" name="" id="schedule_time"></div>'
                             );
-                            console.log(res);
-                            res.forEach(function(schedule_id) {
-                                schedule.append(
-                                    '<div class="badge_wrapper"><label for="schedule_time' +
-                                    count + '">' + schedule_id['from_time'] +
-                                    ' to ' + schedule_id['to_time'] +
-                                    '</label> <input value="' + schedule_id['id'] +
-                                    '" type="radio" name="schedule_id" id="schedule_time' +
-                                    count + '"></div>');
-                                count++;
+                            res.forEach(function(scheduleGroup) {
+                                scheduleGroup.forEach(function(scheduleItem) {
+                                    console.log(scheduleItem);
+
+                                    schedule.append(
+                                        '<div class="badge_wrapper"><span>'+ moment(scheduleItem.date).format("YYYY-MMMM-DD dddd") +'</span><label for="schedule_time' +
+                                        count + '">' + moment(scheduleItem
+                                            .start_time, "HH:mm").format(
+                                            "hh:mm A") +
+                                        ' to ' + moment(scheduleItem
+                                            .end_time, "HH:mm").format(
+                                            "hh:mm A") +
+                                        '</label> <input value="' +
+                                        scheduleItem.start_time + '-' +
+                                        scheduleItem.end_time +
+                                        '" type="radio" name="time_range" id="schedule_time' +
+                                        count +
+                                        '"><input type="radio" name="schedule_id" value="' +
+                                        scheduleItem.schedule_id +
+                                        '"></div>'
+                                    );
+                                    count++;
+                                })
+
                             })
                         },
                         error: function() {
@@ -1343,6 +1359,20 @@
             $(document).on('click', '.badge_wrapper input', function() {
                 $('.badge_wrapper').removeClass('bg_update');
                 $(this).parent().addClass('bg_update');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            $(document).on('change', '.badge_wrapper input[type="radio"]', function() {
+                var $this = $(this);
+                var wrapper = $this.closest('.badge_wrapper');
+                if ($this.is(':checked')) {
+                    wrapper.find('input[type="radio"]').prop('checked', true);
+                } else {
+                    wrapper.find('input[type="radio"]').prop('checked', false);
+                }
             });
         });
     </script>

@@ -4,7 +4,7 @@
 /* Style the input fields */
 input {
 
-  width: 100%;
+  /* width: 100%;
   display: block;
   width: 100%;
   height: calc(1.5em + .75rem + 2px);
@@ -16,8 +16,8 @@ input {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #d1d3e2;
-  border-radius: .35rem;
-  ;
+  border-radius: .35rem; */
+  
 }
 
 /* Mark input boxes that gets an error on validation: */
@@ -65,8 +65,8 @@ input.invalid {
 }
 
 .image_place_holder img {
-  width: auto;
-  height: 164px;
+  width: 100%;
+  height: auto;
   margin-bottom: 15px;
 }
 
@@ -145,12 +145,7 @@ input.invalid {
   padding: 15px;
 }
 
-#wrapper_one .institure_detail {
-  background-color: #efefef;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
+ 
 /* ********************************************************** */
 .full_wrapper {
   margin-top: 150px;
@@ -174,30 +169,34 @@ input.invalid {
 }
 
 fieldset.fieldSet_wrapper {
-  border: 1px solid gainsboro;
+  border: 1px solid #3f65d4;
   padding: 15px;
+  position: relative;
 }
 
 fieldset.fieldSet_wrapper legend {
   width: auto;
   font-size: 16px;
   margin-bottom: 0;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #4268d6;
 }
 
-.thumbnail_image input[type='file'] {
+.thumbnail_image > input {
   position: absolute;
   height: 100%;
   top: 0;
   opacity: 0;
   cursor: pointer;
+  left: 0;
 }
 
 .thumbnail_image span {
   position: absolute;
   top: 44%;
-  right: 0;
-  transform: translate(-66%, 0%);
-  opacity: 0.5;
+  right: 5px;
+  font-size: 14px;
 }
 
 .select_style select {
@@ -270,4 +269,120 @@ fieldset.fieldSet_wrapper legend {
 .active_error + .required_label{
   display: block !important;
   color:red;
+}
+.hidden{
+  display: none !important;
+}
+.edit_gender {
+  display: flex;
+  align-items: center;
+}
+.table-responsive nav{
+  display: flex;
+  justify-content: center;
+}
+.breadcrumb_wrapper {
+  position: relative;
+}
+
+.breadcrumb_wrapper > a {
+  position: absolute;
+  top: 9px;
+  right: 18px;
+}
+
+/* **************************************************************** */
+.content_info_wrapper,
+.image_thumbnail_wrapper {
+  background-color: #eaecf4;
+  padding: 15px;
+  border-radius: 3px;
+  margin-bottom:30px;
+}
+.img_wrapper {
+  padding: 30px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.image_thumbnail_wrapper input {
+  padding: 4px;
+  background-color: white;
+  width: 100%;
+  border-radius: 3px;
+}
+.img_wrapper img {
+  width: 100%;
+  border-radius: 3px;
+}
+.delete_wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  border-left: 1px solid #3d63d2;
+}
+.deleteEducatioon {
+  position: relative;
+  top: -43px;
+  right: -15px;
+}
+.academic_info .fieldSet_wrapper {
+  margin-bottom: 30px;
+}
+a#glyphicon-remove {
+  position: relative;
+  bottom: -27px;
+}
+#step_circle {
+  display: none;
+}
+.btn_group {
+  margin-bottom: 30px;
+}
+.work_experience .fieldSet_wrapper {
+  margin-bottom: 30px;
+}
+a.deleteExperience {
+  position: relative;
+  top: -42px;
+  right: -16px;
+}
+.doctor_table_badge {
+  background-color: #3b61d1;
+  font-size: 14px;
+  font-weight: normal;
+  color: white;
+}
+.form_wrapper_doctor input{
+  
+   width: 100%;
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6e707e;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #d1d3e2;
+  border-radius: .35rem;
+}
+.form_wrapper_doctor input[type='radio']{
+  width:auto;
+}
+
+.status_badge.text-primary {
+    background-color: #4469d7;
+    border-radius: 5px;
+    color: white !important;
+    text-transform: capitalize;
+}
+
+.status_badge.text-danger {
+    background-color: #e74a3b;
+    color: white !important;
+    text-transform: capitalize;
+    border-radius: 5px;
 }

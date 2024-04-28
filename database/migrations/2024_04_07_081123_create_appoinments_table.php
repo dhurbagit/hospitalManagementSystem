@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId('doctor_id')->constrained('doctors');
             $table->foreignId('schedule_id')->constrained('schedules');
             $table->foreignId('patient_id')->constrained('patients');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->enum('status', ['pending', 'approved', 'cancel']);
-            $table->longText('nonte');
+            $table->string('time_range')->nullable();
+            $table->longText('note')->nullable();
             $table->timestamps();
         });
     }

@@ -15,4 +15,5 @@ class Schedule extends Model
    {
       return $this->hasOne(Appoinment::class, 'schedule_id');
    }
+   
 }

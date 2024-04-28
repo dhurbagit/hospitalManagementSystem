@@ -1,76 +1,77 @@
 @extends('layout.app')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="breadcrumb_wrapper">
+        {{ Breadcrumbs::render('departmentform') }}
+
+    </div>
+
+    <div class="content_info_wrapper work_experience">
         @if (isset($showList))
-        <h1 class="h3 mb-0 text-gray-800">Update Department</h1>
-        @else
-        <h1 class="h3 mb-0 text-gray-800">Create New Department</h1>
-        @endif
-        <a href="{{ route('department.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> View Records</a>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            @if (isset($showList))
-                <form action="{{ route('department.update', $showList->id) }}" method="POST">
-                    @method('PUT')
-                @else
-                    <form action="{{ route('department.store') }}" method="POST">
-            @endif
-            @csrf
-            <div class="form-group row">
-                <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputName" name="dept_name"
-                        value="{{ isset($showList) ? $showList->dept_name : old('dept_name') }}">
-                    <div class="text-danger">
-                        @error('dept_name')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputCode" class="col-sm-2 col-form-label">Code</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputCode" name="dept_code"
-                        value="{{ isset($showList) ? $showList->dept_code : old('dept_code') }}">
-                    <div class="text-danger">
-                        @error('dept_code')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputdescription" class="col-sm-2 col-form-label">Description</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px;" name="dept_description" id="editor" rows="10">{{ isset($showList) ? $showList->dept_description : old('dept_description') }}</textarea>
-                    <div class="text-danger">
-                        @error('dept_description')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            @if (isset($showList))
-                <button type="submit" class="offset-sm-2 btn btn-success">Update</button>
+            <form action="{{ route('department.update', $showList->id) }}" method="POST">
+                @method('PUT')
             @else
-                <button type="submit" class="offset-sm-2 btn btn-success">Save</button>
-            @endif
-            </form>
-        </div>
+                <form action="{{ route('department.store') }}" method="POST">
+        @endif
+        @csrf
+        <fieldset class="fieldSet_wrapper">
+            <legend>Create New Department Form</legend>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputName" name="dept_name"
+                            value="{{ isset($showList) ? $showList->dept_name : old('dept_name') }}">
+                        <small class="form-text text-muted">Enter Your New department name</small>
+                        @error('dept_name')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputCode" name="dept_code"
+                            value="{{ isset($showList) ? $showList->dept_code : old('dept_code') }}">
+                        <small class="form-text text-muted">Enter Your deprtment Code</small>
+                        @error('dept_code')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <textarea class="form-control" style="height: 100px;" name="dept_description" id="editor" rows="10">{{ isset($showList) ? $showList->dept_description : old('dept_description') }}</textarea>
+                    <small class="form-text text-muted">Enter Description</small>
+                    @error('dept_description')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+            </div>
+
+
+
+
+        </fieldset>
+        @if (isset($showList))
+            <button type="submit" class="btn btn-success">Update</button>
+        @else
+            <button type="submit" class="btn btn-success">Save</button>
+        @endif
+        </form>
     </div>
-
-
 @endsection
 
 @push('scripts')
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 @endpush

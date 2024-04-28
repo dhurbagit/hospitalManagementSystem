@@ -1,11 +1,12 @@
 @extends('layout.app')
 @section('content')
+<div class="breadcrumb_wrapper">
+    {{ Breadcrumbs::render('userList') }}
+    <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-plus"></i> Add User</a>
+</div>
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Add User</a>
-    </div>
+    
     <div class="row">
         <div class="col-lg-12">
             <!-- DataTales Example -->
@@ -15,14 +16,14 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>SNo</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                    <th>Action</th>
+                                    <th style="text-align: center">Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -31,7 +32,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                    <th>Action</th>
+                                    <th style="text-align: center">Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -41,10 +42,10 @@
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->roles->name }}</td>
-                                        <td>
+                                        <td style="text-align: center">
                                              
                                             <a href="{{route('users.edit', $data->id)}}"><i class="far fa-edit"></i></a>
-                                            <a href="" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i class="fas fa-trash"></i></a>
+                                            <a href="" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i class="fas fa-trash text-danger"></i></a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal_{{$data->id}}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,6 +79,10 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="pagination_style">
+                            {{$userList->links()}}
+                            </div> 
+                        
                     </div>
                 </div>
             </div>

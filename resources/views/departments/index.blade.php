@@ -1,12 +1,14 @@
 @extends('layout.app')
 @section('content')
 
+<div class="breadcrumb_wrapper">
+    {{ Breadcrumbs::render('departmentList') }}
+    <a href="{{ route('department.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-plus"></i> Add Department</a>
+</div>
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="{{ route('department.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Add Department</a>
-    </div>
+ 
+    
     <div class="row">
         <div class="col-lg-12">
             <!-- DataTales Example -->
@@ -16,14 +18,14 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Department Name</th>
                                     <th>Department Code</th>
                                     <th>Description</th>
-                                    <th>Action</th>
+                                    <th style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -32,7 +34,7 @@
                                     <th>Department Name</th>
                                     <th>Department Code</th>
                                     <th>Description</th>
-                                    <th>Action</th>
+                                    <th style="text-align: center;">Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -43,7 +45,7 @@
                                         <td>{{ $data->dept_code }}</td>
                                         <td>{!! Str::limit($data->dept_description, 20, '...') !!}</td>
 
-                                        <td>
+                                        <td style="text-align: center;">
                                             <a href="{{ route('department.edit', $data->id) }}"><i
                                                     class="far fa-edit"></i></a>
                                             <a href="#" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i
@@ -81,6 +83,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="pagination_style">
+                            {{$list->links()}}
+                            </div> 
                     </div>
                 </div>
             </div>

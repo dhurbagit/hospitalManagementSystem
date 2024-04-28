@@ -172,7 +172,7 @@ class DoctorController extends Controller
         $doctor = Doctor::find($id);
 
         $input = $request->all();
-        if ($input['password'] == null) unset($input['password']);
+        // if ($input['password'] == null) unset($input['password']);
 
         if ($request->hasFile('image')) {
             $input['image'] = $request->file('image')->store('doctorImage', 'uploads');

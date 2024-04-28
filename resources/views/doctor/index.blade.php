@@ -1,17 +1,13 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="alert alert-dark cs_breadcrumb" role="alert">
-        <div>
-            <a href="{{ url('/dashboard') }}">Dashboard</a>
-            <span>/</span>
-            <a href="">List</a>
-        </div>
-        <div>
-            <a href="{{ route('doctor.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-plus"></i> Add Doctor</a>
-        </div>
-    </div>
+<div class="breadcrumb_wrapper">
+    {{ Breadcrumbs::render('doctorList') }}
+    <a href="{{ route('doctor.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-plus"></i> Add Doctor</a>
+</div>
+
+     
     <!-- Page Heading -->
 
 
@@ -23,6 +19,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Doctor List</h6>
                 </div>
+                
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0">
@@ -50,16 +47,16 @@
                                
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <th>{{ Str::ucfirst($data->first_name) . ' ' . Str::ucfirst($data->middle_name) . ' ' . Str::ucfirst($data->last_name) }}
-                                        </th>
-                                        <th>
+                                        <td>{{ Str::ucfirst($data->first_name) . ' ' . Str::ucfirst($data->middle_name) . ' ' . Str::ucfirst($data->last_name) }}
+                                        </td>
+                                        <td>
                                             {{-- {{ Str::ucfirst($data->education->specialization) }}  --}}
                                             @foreach ($data->education as $rec)
-                                                <span class="badge">{{$rec->specialization}}</span>
+                                                <span class="badge doctor_table_badge">{{$rec->specialization}}</span>
                                             @endforeach
-                                        </th>
-                                        <th>{{ Str::ucfirst($data->department->dept_name) }}</th>
-                                        <th style="text-align: center;">
+                                        </td>
+                                        <td>{{ Str::ucfirst($data->department->dept_name) }}</td>
+                                        <td style="text-align: center;">
                                             <a href="{{ route('doctor.show', $data->id) }}" data-toggle="tooltip"
                                                 data-placement="top" title="View detail" class="text-success"><i
                                                     class="far fa-eye"></i></a>
@@ -100,7 +97,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </th>
+                                        </td>
                                     </tr>
                                 @endforeach
 

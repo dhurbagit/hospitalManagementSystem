@@ -77,7 +77,7 @@ class DoctorControllerD extends Controller
 
         $editDoctorEducation = DoctorEducation::where('doctor_id', $id)->get();
         // dd($editDoctorEducation);
-        $editDoctorExperience = DoctorExperience::where('doctor_id', $id)->first();
+        $editDoctorExperience = DoctorExperience::where('doctor_id', $id)->get();
         $editUserDetail = User::find($sessionId->id);
 
 
@@ -106,12 +106,13 @@ class DoctorControllerD extends Controller
      */
     public function update(Request $request, string $id)
     {
+         
+         
         $userId = Auth::user();
-        //    dd($request->all());
         $doctor = Doctor::find($id);
 
         $input = $request->all();
-        if ($input['password'] == null) unset($input['password']);
+        
 
         if ($request->hasFile('image')) {
             $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
@@ -128,11 +129,21 @@ class DoctorControllerD extends Controller
                 'doctor_id' => $id,
             ]);
         }
-        //    $doctorEducation = DoctorEducation::where('doctor_id', $doctor->id)->first();
-        //    $doctorEducation->update($input);
+    
+        
+        DoctorExperience::where('doctor_id', $id)->delete();
+        foreach($request->organization_name as $key => $value){
+            DoctorExperience::create([
+                'organization_name' => $request->organization_name[$key],
+                'start_date_bs' => $request->start_date_bs[$key],
+                'start_date_ad' => $request->start_date_ad[$key],
+                'end_date_bs' => $request->end_date_bs[$key],
+                'end_date_ad' => $request->end_date_ad[$key],
+                'description' => $request->description[$key],
+                'doctor_id' => $id
+            ]);
+        }
 
-        $doctorExperience = DoctorExperience::where('doctor_id', $doctor->id)->first();
-        $doctorExperience->update($input);
 
         $user = User::find($userId->id);
         $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
@@ -170,4 +181,9 @@ class DoctorControllerD extends Controller
         DoctorEducation::find($request->id)->delete();
         return 'successfully delete';
     }
+    public function deleteDoctorExperience(Request $request){
+        DoctorExperience::find($request->id)->delete();
+        return 'successfully delete';
+    }
+
 }

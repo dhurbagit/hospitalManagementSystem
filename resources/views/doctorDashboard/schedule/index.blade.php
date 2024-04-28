@@ -1,13 +1,13 @@
 @extends('doctorDashboard.layout.app')
 
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard Schedule</h1>
-        <a href="{{ route('DoctorSchedule.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Add Schedule</a>
-    </div>
+<div class="breadcrumb_wrapper">
+    {{ Breadcrumbs::render('scheduleList') }}
+    <a href="{{ route('DoctorSchedule.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-plus"></i> Add Schedule</a>
+</div>
 
+    
     <div class="row">
         <div class="col-lg-12">
             <!-- DataTales Example -->
@@ -17,13 +17,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>SNo</th>
                                     <th>Schedule</th>
                                     <th>Date</th>
-                                    <th>Action</th>
+                                    <th style="text-align: center">Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -31,74 +31,135 @@
                                     <th>SNo</th>
                                     <th>Schedule</th>
                                     <th>Date</th>
-                                    <th>Action</th>
+                                    <th style="text-align: center">Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
+                                @php
+                                    $authId = Auth::user();
+                                    $doctorId = \App\Models\Doctor::where('user_id', $authId->id)->first();
+                                    $appointments = \App\Models\Appoinment::where('doctor_id', $doctorId->id)->get();
+                                @endphp
+                                
 
-                                @foreach ($list as $data)
+                                @foreach ($list as $item)
+                                    @php
+                                        $increment = 1;
+                                    @endphp
+                                    @php
+                                        // Convert start and end time to Carbon objects for easier manipulation
+                                        $startTime = \Carbon\Carbon::parse($item['from_time']);
+                                        $endTime = \Carbon\Carbon::parse($item['to_time']);
+                                        // Set the interval to 30 minutes
+                                        $interval = 30;
+                                        // Initialize a counter variable
+                                        $counter = 0;
+                                        $status = ''; // Default status
+                                    @endphp
+
+                                    @while ($startTime->addMinutes($interval)->lte($endTime))
+                                        @php
+                                            $startFormatted = $startTime->subMinutes($interval)->format('H:i');
+                                            $endFormatted = $startTime->addMinutes($interval)->format('H:i');
+                                            $matchFound = false;
+                                            // Check if current interval matches any appointment
+                                        @endphp
+
+                                        @foreach ($appointments as $appointment)
+                                            @php
+                                                // Extract start and end times from the time_range field
+                                                [$appointmentStartTime, $appointmentEndTime] = explode(
+                                                    '-',
+                                                    $appointment->time_range,
+                                                );
+                                                $appointmentStartTime = \Carbon\Carbon::parse($appointmentStartTime);
+                                                $appointmentEndTime = \Carbon\Carbon::parse($appointmentEndTime);
+                                            @endphp
+
+                                            @if (
+                                                $startTime->between($appointmentStartTime, $appointmentEndTime) ||
+                                                    $endTime->between($appointmentStartTime, $appointmentEndTime) ||
+                                                    $appointmentStartTime->between($startTime, $endTime) ||
+                                                    $appointmentEndTime->between($startTime, $endTime))
+                                                @php
+                                                    $matchFound = true;
+                                                    $status = $appointment->status;
+                                                @endphp
+                                            @break
+                                        @endif
+                                    @endforeach
+
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <th><span class="badge">{{ $data->from_time . ' to ' . $data->to_time }}</span>
-                                        </th>
-                                        <th>{{ $data->date }}</th>
-                                       
-                                        <th>
-                                             
-                                            @if (@$data->appoinment->status != 'approved')
-                                             
-                                                <a href="{{ route('DoctorSchedule.edit', $data->id) }}"><i
+                                        <td>{{ $increment }}</td>
+                                        <td> {{ $startFormatted }} to {{ $endFormatted }}</span></td>
+                                        <td>{{ $item->date }}</td>
+                                        
+                                        <td style="text-align: center">
+                                            @if (!$matchFound)
+                                                <a class="text-primary" href="{{ route('DoctorSchedule.edit', $item->id) }}"><i
                                                         class="far fa-edit"></i></a>
-                                                <a href="" data-toggle="modal"
-                                                    data-target="#exampleModal_{{ $data->id }}"><i
-                                                        class="fas fa-trash"></i></a>
+                                                <a class="text-danger" href="javascript:void(0)" data-toggle="modal"
+                                                    data-target="#exampleModal{{ $item->id }}"><i
+                                                        class="fas fa-trash-alt"></i></a>
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal_{{ $data->id }}" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="exampleModal{{ $item->id }}"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Delete Doctor
-                                                                    Detail</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Are you
+                                                                    sure to delete</h5>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                Are You sure you want to delete Doctor
-                                                                {{ $data->first_name }}
-                                                            </div>
                                                             <div class="modal-footer">
                                                                 <form
-                                                                    action="{{ route('DoctorSchedule.destroy', $data->id) }}"
+                                                                    action="{{ route('DoctorSchedule.destroy', $item->id) }}"
                                                                     method="POST">
-                                                                    @method('delete')
+                                                                    @method('DELETE')
                                                                     @csrf
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-dismiss="modal">No</button>
-                                                                    <button type="submit" class="btn btn-primary">Yes
-                                                                    </button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Yes</button>
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 @else
-                                                {{'Booked Appoinment'}}
+                                                <div class="status_badge {{($status === "approved")? 'text-primary ' : 'text-danger'}}">{{$status}}</div>
+                                                
+                                                
                                             @endif
-                                        </th>
 
-
+                                        </td>
                                     </tr>
-                                @endforeach
 
-                            </tbody>
-                        </table>
+                                    @php
+                                        // Increment the counter
+                                        $counter++;
+                                        $increment++;
+                                    @endphp
+                                @endwhile
+                            @endforeach
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <div class="pagination_style">
+
+                        {{ $list->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

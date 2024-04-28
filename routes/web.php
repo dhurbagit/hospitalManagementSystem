@@ -65,7 +65,7 @@ Route::middleware(['auth', 'doctorMiddleware'])->group(function () {
     // doctorDashboard
     Route::get('doctor-dashboard', function(){
         return view('doctorDashboard.dashboard');
-    });
+    })->name('mainDoctorDashboard');
     Route::resource('/doctorDashboard', DoctorControllerD::class)->names('doctorDashboard');
     Route::get('/getProvince_d', [DoctorControllerD::class, 'getProvince_d'])->name('getProvince_d');
     Route::get('/getDistrict_d/{id}', [DoctorControllerD::class, 'getDistrict_d'])->name('getDistrict_d');
@@ -79,9 +79,11 @@ Route::middleware(['auth', 'doctorMiddleware'])->group(function () {
     Route::post('appoinment-status', [AppoinmentController::class, 'status'])->name('appoinment.status');
 
     Route::post('deleteDoctorEducation', [DoctorControllerD::class, 'deleteDoctorEducation'])->name('deleteDoctorEducation');
+    Route::post('deleteDoctorExperience', [DoctorControllerD::class, 'deleteDoctorExperience'])->name('deleteDoctorExperience');
 });
 
-
+Route::get('/notify', [AppoinmentController::class, 'notify']);
+Route::get('/markAsRead/{id}', [AppoinmentController::class, 'markasread'])->name('markasread');
 
 
 // Frontend home 

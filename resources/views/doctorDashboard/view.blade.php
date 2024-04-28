@@ -65,7 +65,7 @@
                         <ul>
                             <li><span>Organization:</span> {{ $data->organization_name }}</li>
                             <li><span>Start Date Bs:</span> {{ $data->start_date_bs }}</li>
-                            <li><span>End Date Bs:</span> Ma{{ $data->end_date_bs }}le</li>
+                            <li><span>End Date Bs:</span> {{ $data->end_date_bs }}</li>
                             <li><span>Start Date AD:</span> {{ $data->start_date_ad }}</li>
                             <li><span>End Date BS:</span> {{ $data->end_date_bs }}</li>
                             <li><span>Description:</span> {{ $data->description }}

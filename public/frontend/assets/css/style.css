@@ -1822,3 +1822,10 @@ section {
 .badge_wrapper.bg_update {
   background-color: black;
 }
+
+.badge_wrapper span {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  color: white;
+}
