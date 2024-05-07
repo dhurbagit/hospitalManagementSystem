@@ -16,11 +16,14 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-
+ 
         $user = Auth::user();
        
         if($user->role_id == 1){
             return $next($request);
+        }
+        elseif($user->role_id == 2){
+           return redirect()->route('mainDoctorDashboard');
         }
         else{
             return redirect()->back();

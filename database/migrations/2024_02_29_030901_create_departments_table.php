@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('dept_code');
             $table->longText('dept_description');
             $table->timestamps();
+            $table->timestamps('deleted_at');
         });
     }
 

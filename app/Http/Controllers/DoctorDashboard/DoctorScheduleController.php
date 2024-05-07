@@ -14,18 +14,64 @@ use Illuminate\Support\Facades\Auth;
 class DoctorScheduleController extends Controller
 {
     //
-
+    protected $doctor;
+    public function __construct(Doctor $doctor)
+    {
+        $this->doctor = $doctor;
+        
+    }
 
 
     public function index()
     {
 
         $user_id = Auth::user();
-        $doctorData = Doctor::where('user_id', $user_id->id)->first();
-        $list = Schedule::where('doctor_id', $doctorData->id)->orderBy('id', 'DESC')->paginate(1);
+        
 
 
-        return view('doctorDashboard.schedule.index', compact('list'));
+        $doctorId = Doctor::where('user_id', $user_id->id)->first();
+        $list = Schedule::where('doctor_id', $doctorId->id)->orderBy('id', 'DESC')->paginate(5);
+        $appointments = Appoinment::where('doctor_id', $doctorId->id)->get();
+
+        $timeIntervals = [];
+
+        foreach ($list as $schedule) {
+            $startDate = Carbon::parse($schedule->date)->format('Y-m-d');
+            $startTime = Carbon::parse($startDate . ' ' . $schedule->from_time);
+            $endTime = Carbon::parse($startDate . ' ' . $schedule->to_time);
+            $interval = 30; // Interval in minutes
+
+            $currentTime = clone $startTime;
+
+            while ($currentTime->addMinutes($interval)->lte($endTime)) {
+                $status = ''; // Default status
+
+                // Compare the current time interval with appointments
+                foreach ($appointments as $appointment) {
+                    [$appointmentStartTime, $appointmentEndTime] = explode('-', $appointment->time_range);
+                    $appointmentStartTime = Carbon::parse($startDate . ' ' . $appointmentStartTime);
+                    $appointmentEndTime = Carbon::parse($startDate . ' ' . $appointmentEndTime);
+
+                    if ($currentTime->between($appointmentStartTime, $appointmentEndTime)) {
+                        $status = $appointment->status;
+                        break; // No need to continue checking once a match is found
+                    }
+                }
+
+                $timeIntervals[] = [
+                    'date' => $startDate,
+                    'start' => $currentTime->clone()->subMinutes($interval)->format('H:i'),
+                    'end' => $currentTime->format('H:i'),
+                    'status' => $status, // Include appointment status
+                    'schedule_id' => $schedule->id, // Include schedule ID if needed
+                ];
+            }
+        }
+
+        // dd($timeIntervals);
+
+
+        return view('doctorDashboard.schedule.index', compact('timeIntervals', 'list'));
     }
 
 

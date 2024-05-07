@@ -6,15 +6,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
+use Exception;
 
 class DepartmentController extends Controller
 {
+    protected $department;
+
+    public function __construct(Department $department)
+    {
+        $this->department = $department;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
+
         $list = Department::orderBy('id', 'DESC')->paginate(5);
         return view('departments.index', compact('list'));
     }
@@ -88,5 +96,31 @@ class DepartmentController extends Controller
         $deleteData = Department::findOrFail($id);
         $deleteData->delete();
         return redirect()->back()->with('message', 'Department Deleted succesfully');
+    }
+    public function trashfile()
+    {
+
+        $trashfile = Department::onlyTrashed()->get();
+        return view('departments.thrashList', compact('trashfile'));
+    }
+    public function restoretrashfile($id)
+    {
+        $restoreFile = Department::withTrashed()->find($id);
+        $restoreFile->restore();
+        return redirect()->back()->with('message', 'file restored.');
+    }
+
+    public function trashPermanentDelete($id)
+    {
+        try{
+
+        
+        $forecDelte = Department::withTrashed()->find($id);
+        $forecDelte->forceDelete();
+        return redirect()->back()->with('message', 'file Deleted.');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('message', $e->getMessage());
+        }
     }
 }

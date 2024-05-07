@@ -7,10 +7,12 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\DoctorDashboard\AppoinmentController;
 use App\Http\Controllers\DoctorDashboard\DoctorControllerD;
 use App\Http\Controllers\DoctorDashboard\DoctorScheduleController;
+use App\Models\Department;
 use App\Models\DoctorEducation;
 
 /*
@@ -36,27 +38,39 @@ Route::middleware(['auth', 'role'])->group(function () {
 
     // Department 
     Route::resource('/department', DepartmentController::class)->names('department');
-    Route::resource('/doctor', DoctorController::class)->names('doctor');
-
+    Route::get('/trashfile', [DepartmentController::class, 'trashfile'])->name('trashfile');
+    Route::get('/restoretrashfile/{id}', [DepartmentController::class, 'restoretrashfile'])->name('restoretrashfile');
+    Route::DELETE('/trashPermanentDelete/{id}', [DepartmentController::class, 'trashPermanentDelete'])->name('trashPermanentDelete');
     //doctor
+    Route::resource('/doctor', DoctorController::class)->names('doctor');
+    Route::get('/doctorTrash', [DoctorController::class, 'doctorTrash'])->name('doctorTrash');
+    Route::get('/restoreDoctortrashfile/{id}', [DoctorController::class, 'restoreDoctortrashfile'])->name('restoreDoctortrashfile');
+    Route::DELETE('/trashDoctorPermanentDelete/{id}', [DoctorController::class, 'trashDoctorPermanentDelete'])->name('trashDoctorPermanentDelete');
+
     Route::get('/getDistrict/{id}', [DoctorController::class, 'getDistrict'])->name('getDistrict');
     Route::get('/getMunicipality/{id}', [DoctorController::class, 'getMunicipality'])->name('getMunicipality');
     Route::get('/getPorvince', [DoctorController::class, 'getProvince'])->name('getProvince');
     Route::post('deleteEducation', [DoctorController::class, 'deleteEducation'])->name('deleteEducation');
     Route::post('deleteExperience', [DoctorController::class, 'deleteExperience'])->name('deleteExperience');
-
     // user 
     Route::resource('/users', UserController::class)->names('users');
+
+    Route::resource('/patient', PatientController::class)->names('patient');
 });
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', function () {
-        return view('login.index');
-    })->name('login');
-    // Route::get('/login', [LoginController::class, 'loginCheck'])->name('login');
-    Route::post('/login/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
-});
+
+
+
+
+
+// Route::middleware('guest')->group(function () {
+//     Route::get('/login', function () {
+//         return view('login.index');
+//     })->name('login');
+//     // Route::get('/login', [LoginController::class, 'loginCheck'])->name('login');
+//     Route::post('/login/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
+// });
 
 
 

@@ -36,7 +36,7 @@
                 <div>
                      
                     <span class="font-weight-bold">{{$notification->data['message']}}</span>
-                    <span class="text-danger">--Mark as read</span>
+                
                    
                 </div>
             </a>

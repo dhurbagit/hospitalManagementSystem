@@ -1,5 +1,6 @@
 @extends('doctorDashboard.layout.app')
 @section('content')
+@section('title', 'Dashboard')
 <!-- Content Row -->
 <div class="row">
 

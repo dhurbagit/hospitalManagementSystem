@@ -53,50 +53,50 @@ class DoctorController extends Controller
 
         DB::beginTransaction();
         // try {
-// dd($request->all());
-            $input =  $request->all();
-            if ($request->hasFile('image')) {
-                $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
-            }
+        // dd($request->all());
+        $input =  $request->all();
+        if ($request->hasFile('image')) {
+            $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
+        }
 
-            $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
-            $input['role_id'] = 2;
-            $user = User::create($input);
+        $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
+        $input['role_id'] = 2;
+        $user = User::create($input);
 
-            $input['user_id'] = $user->id;
-            $doctor = Doctor::create($input);
+        $input['user_id'] = $user->id;
+        $doctor = Doctor::create($input);
 
 
 
-            foreach ($request->institute_name as $key => $value) {
+        foreach ($request->institute_name as $key => $value) {
 
-                DoctorEducation::create([
-                    'institute_name' => $request->institute_name[$key],
-                    'medical_degree' => $request->medical_degree[$key],
-                    'graduation_year_bs' => $request->graduation_year_bs[$key],
-                    'graduation_year_ad' => $request->graduation_year_ad[$key],
-                    'specialization' => $request->specialization[$key],
-                    'doctor_id' => $doctor->id,
-                ]);
-            }
-            foreach ($request->organization_name as $key => $value) {
-                DoctorExperience::create([
-                    'organization_name' => $request->organization_name[$key],
-                    'start_date_bs' => $request->start_date_bs[$key],
-                    'start_date_ad' => $request->start_date_ad[$key],
-                    'end_date_bs' => $request->end_date_bs[$key],
-                    'end_date_ad' => $request->end_date_ad[$key],
-                    'description' => $request->description[$key],
-                    'doctor_id' => $doctor->id,
+            DoctorEducation::create([
+                'institute_name' => $request->institute_name[$key],
+                'medical_degree' => $request->medical_degree[$key],
+                'graduation_year_bs' => $request->graduation_year_bs[$key],
+                'graduation_year_ad' => $request->graduation_year_ad[$key],
+                'specialization' => $request->specialization[$key],
+                'doctor_id' => $doctor->id,
+            ]);
+        }
+        foreach ($request->organization_name as $key => $value) {
+            DoctorExperience::create([
+                'organization_name' => $request->organization_name[$key],
+                'start_date_bs' => $request->start_date_bs[$key],
+                'start_date_ad' => $request->start_date_ad[$key],
+                'end_date_bs' => $request->end_date_bs[$key],
+                'end_date_ad' => $request->end_date_ad[$key],
+                'description' => $request->description[$key],
+                'doctor_id' => $doctor->id,
 
-                ]);
-            }
+            ]);
+        }
 
-            DB::commit();
-            return redirect()->route('doctor.index')->with('message', 'Doctor Record Successfully added');
+        DB::commit();
+        return redirect()->route('doctor.index')->with('message', 'Doctor Record Successfully added');
         // } catch (\Exception $e) {
-            DB::rollBack();
-            // return redirect()->back()->with('error', $e->getMessage());
+        DB::rollBack();
+        // return redirect()->back()->with('error', $e->getMessage());
         // }
     }
 
@@ -133,7 +133,7 @@ class DoctorController extends Controller
         $editDoctorEducation = DoctorEducation::where('doctor_id', $id)->get();
         $editDoctorExperience = DoctorExperience::where('doctor_id', $id)->get();
         $userDoctor = $editDoctor->user_id;
-         
+
         $editUserDetail = User::find($userDoctor);
 
         $province = Province::get();
@@ -143,11 +143,11 @@ class DoctorController extends Controller
         $departmentList = Department::get();
 
 
-        
 
-         
+
+
         return view('doctor.form', compact(
-            
+
             'departmentList',
             'editDoctor',
             'editDoctorEducation',
@@ -168,7 +168,7 @@ class DoctorController extends Controller
     public function update(DoctorRequest $request, string $id)
     {
         //
-         
+
         $doctor = Doctor::find($id);
 
         $input = $request->all();
@@ -178,9 +178,9 @@ class DoctorController extends Controller
             $input['image'] = $request->file('image')->store('doctorImage', 'uploads');
         }
         $doctor->update($input);
- 
+
         DoctorEducation::where('doctor_id', $id)->delete();
-        foreach($request->institute_name as $key => $value){
+        foreach ($request->institute_name as $key => $value) {
             DoctorEducation::create([
                 'institute_name' => $request->institute_name[$key],
                 'medical_degree' => $request->medical_degree[$key],
@@ -192,7 +192,7 @@ class DoctorController extends Controller
         }
 
         DoctorExperience::where('doctor_id', $id)->delete();
-        foreach($request->organization_name as $key => $value){
+        foreach ($request->organization_name as $key => $value) {
             DoctorExperience::create([
                 'organization_name' => $request->organization_name[$key],
                 'start_date_bs' => $request->start_date_bs[$key],
@@ -225,9 +225,9 @@ class DoctorController extends Controller
         DoctorExperience::where('doctor_id', $doctor->id)->delete();
         $doctor->delete();
 
-         
-        User::find($doctor->user_id)->delete();
-        
+
+        // User::find($doctor->user_id)->delete();
+
         return redirect()->back()->with('message', 'Record Deleted successfully!');
     }
 
@@ -247,15 +247,42 @@ class DoctorController extends Controller
         return response()->json($municipality);
     }
 
-    public function deleteEducation(Request $request){
-        
+    public function deleteEducation(Request $request)
+    {
+
         DoctorEducation::find($request->id)->delete();
         return 'successfully delete';
     }
-    public function deleteExperience(Request $request){
-        
+    public function deleteExperience(Request $request)
+    {
+
         DoctorExperience::find($request->id)->delete();
         return 'successfully delete';
     }
 
+
+    public function doctorTrash()
+    {
+        $trashFile = Doctor::onlyTrashed()->get();
+        return view('doctor.trashfile', compact('trashFile'));
+    }
+    public function restoreDoctortrashfile($id)
+    {
+        $restore = Doctor::withTrashed()->find($id);
+        $restore->restore();
+        return redirect()->back()->with('message', 'file restored.');
+    }
+    public function trashDoctorPermanentDelete($id){
+        try{
+
+        
+            $forecDelte = Doctor::withTrashed()->find($id);
+            $forecDelte->forceDelete();
+            return redirect()->back()->with('message', 'file Deleted.');
+            }
+            catch(\Exception $e){
+                return redirect()->back()->with('message', $e->getMessage());
+            }
+
+    }
 }

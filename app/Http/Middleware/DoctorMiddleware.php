@@ -16,6 +16,7 @@ class DoctorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+     
         $user = Auth::user();
         if($user->role_id == 2){
             return $next($request);

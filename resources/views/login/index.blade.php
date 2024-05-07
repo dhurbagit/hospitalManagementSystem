@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -25,6 +25,7 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
+        
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -41,7 +42,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form action="{{ route('login.authenticate') }}" method="POST" class="user">
+                                    <form action="{{ route('login') }}" method="POST" class="user">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
@@ -92,11 +93,11 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="{{route('password.request')}}">Forgot Password?</a>
                                     </div>
-                                    <div class="text-center">
+                                    {{-- <div class="text-center">
                                         <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

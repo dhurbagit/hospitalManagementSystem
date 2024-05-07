@@ -28,18 +28,23 @@
 
     <li class="nav-item {{(request()->routeIs('department.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('department.index') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="far fa-building"></i>
             <span>Department</span></a>
     </li>
     <li class="nav-item {{(request()->routeIs('doctor.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('doctor.index') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-user-md"></i>
             <span>Doctor</span></a>
     </li>
     <li class="nav-item {{(request()->routeIs('users.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('users.index') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="far fa-user"></i>
             <span>User</span></a>
+    </li>
+    <li class="nav-item {{(request()->routeIs('patient.*') ? 'active' : '')}}">
+        <a class="nav-link" href="{{ route('patient.index') }}">
+            <i class="far fa-user"></i>
+            <span>Patient</span></a>
     </li>
     <div class="sidebar-heading">
         Logout
@@ -47,7 +52,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{route('logout')}}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span></a>
     </li>
 

@@ -1,17 +1,20 @@
 @extends('doctorDashboard.layout.app')
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard Appoinment</h1>
+@section('title', 'Appoinment')
+<div class="breadcrumb_wrapper">
 
-    </div>
+    <ul>
+        <li><a href="{{ url('/doctor-dashboard') }}">Dashboard</a> /</li>
+        <li>@yield('title')</li>
+        
+    </ul>
+    
+</div>
     <div class="row">
         <div class="col-lg-12">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Appoinment</h6>
-                </div>
+                
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" width="100%" cellspacing="0">

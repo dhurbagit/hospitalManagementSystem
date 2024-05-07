@@ -1,13 +1,18 @@
 @extends('layout.app')
 @section('content')
-    <div class="breadcrumb_wrapper">
-        {{ Breadcrumbs::render('userform') }}
+@section('title', 'User')
+<div class="breadcrumb_wrapper">
 
-    </div>
+    <ul>
+        <li><a href="{{ url('/dashboard') }}">Dashboard</a> /</li>
+        <li><a href="{{ route('users.index') }}">@yield('title')</a> /</li>
+        <li>Form</li>
+    </ul>
+     
+</div>
 
     <div class="content_info_wrapper work_experience">
         <fieldset class="fieldSet_wrapper">
-            <legend>Create New user Form</legend>
 
             @if (isset($user))
                 <form action="{{ route('users.update', $user->id) }}" method="post">
@@ -19,37 +24,37 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="form-group">
-
-                        <input type="text" class="form-control" id="name" name="name"
+                        <label id="name" class="form-text">Enter Your name<span class="text-danger">*</span></label>
+                        <input placeholder="Enter Your name" type="text" class="form-control" id="name" name="name"
                             value="{{ isset($user) ? $user->name : old('name') }}">
-                        <small id="name" class="form-text">Enter Your name</small>
+                       
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-
-                        <input type="email" class="form-control" id="email" name="email"
+                        <label id="" class="form-text">Enter Email Address<span class="text-danger">*</span></label>
+                        <input placeholder="Enter Email Address" type="email" class="form-control" id="email" name="email"
                             value="{{ isset($user) ? $user->email : old('email') }}">
-                        <small id="email" class="form-text">Enter Email Address</small>
+                        
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-
-                        <input type="password" class="form-control" id="password" name="password">
-                        <small id="password" class="form-text">Enter Your New Password</small>
+                        <label id="password" class="form-text">Enter Your New Password<span class="text-danger">*</span></label>
+                        <input placeholder="Enter Your New Password" type="password" class="form-control" id="password" name="password">
+                        
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-                        <small id="password_confirmation" class="form-text">Enter Your Password</small>
+                        <label id="password_confirmation" class="form-text">Enter Your Password<span class="text-danger">*</span></label>
+                        <input placeholder="Enter Your Password" type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-
+                        <label id="" class="form-text">Select role for the user<span class="text-danger">*</span></label>
                         <select class="form-control" id="role" name="role_id">
 
                             @foreach ($roles as $role)
@@ -59,7 +64,7 @@
 
 
                         </select>
-                        <small id="password_confirmation" class="form-text">Select role for the user</small>
+                        
                     </div>
                 </div>
                 <div class="col-lg-12">

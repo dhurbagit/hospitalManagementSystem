@@ -14,29 +14,29 @@ Breadcrumbs::for('doctor-dashboard', function ($trail) {
 // dashboard > doctorList
 Breadcrumbs::for('doctorList', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('List', route('doctor.index'));
+    $trail->push('Doctor', route('doctor.index'));
 });
 Breadcrumbs::for('doctorform', function ($trail) {
     $trail->parent('doctorList');
-    $trail->push('Form', route('doctor.create'));
+    $trail->push('Add Doctor', route('doctor.create'));
 });
 
 Breadcrumbs::for('departmentList', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('List', route('department.index'));
+    $trail->push('Department', route('department.index'));
 });
 Breadcrumbs::for('departmentform', function ($trail) {
     $trail->parent('departmentList');
-    $trail->push('Form', route('department.create'));
+    $trail->push('Add Department', route('department.create'));
 });
  
 Breadcrumbs::for('userList', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('List', route('users.index'));
+    $trail->push('User', route('users.index'));
 });
 Breadcrumbs::for('userform', function ($trail) {
-    $trail->parent('departmentList');
-    $trail->push('Form', route('users.create'));
+    $trail->parent('userList');
+    $trail->push('Add User', route('users.create'));
 });
 Breadcrumbs::for('doctorDashboardView', function ($trail) {
     $trail->parent('doctor-dashboard');

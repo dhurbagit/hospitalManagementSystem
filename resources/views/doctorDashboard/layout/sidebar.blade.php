@@ -29,7 +29,7 @@
      
     <li class="nav-item {{(request()->routeIs('doctorDashboard.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('doctorDashboard.index') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-user-md"></i>
             <span>Doctor</span></a>
     </li>
     <li class="nav-item {{(request()->routeIs('DoctorSchedule.*') ? 'active' : '')}}">
@@ -39,7 +39,7 @@
     </li>
     <li class="nav-item {{(request()->routeIs('appoinment.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('appoinment.index') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="far fa-calendar-check"></i>
             <span>Appoinment</span></a>
     </li>
      <!-- Heading -->
@@ -49,7 +49,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{route('logout')}}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span></a>
     </li>
 

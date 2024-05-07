@@ -1,19 +1,26 @@
 @extends('layout.app')
 @section('content')
+@section('title', 'User')
+
 <div class="breadcrumb_wrapper">
-    {{ Breadcrumbs::render('userList') }}
+
+    <ul>
+        <li><a href="{{ url('/dashboard') }}">Dashboard</a> /</li>
+        <li>@yield('title')</li>
+     
+    </ul>
     <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-        class="fas fa-plus"></i> Add User</a>
+        class="fas fa-plus"></i> Add</a>
 </div>
+
+
     <!-- Page Heading -->
     
     <div class="row">
         <div class="col-lg-12">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">User</h6>
-                </div>
+                
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" width="100%" cellspacing="0">
@@ -44,8 +51,8 @@
                                         <td>{{ $data->roles->name }}</td>
                                         <td style="text-align: center">
                                              
-                                            <a href="{{route('users.edit', $data->id)}}"><i class="far fa-edit"></i></a>
-                                            <a href="" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i class="fas fa-trash text-danger"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Edit" href="{{route('users.edit', $data->id)}}"><i class="far fa-edit"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Delete" href="" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i class="fas fa-trash text-danger"></i></a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal_{{$data->id}}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">

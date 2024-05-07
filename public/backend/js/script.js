@@ -252,7 +252,7 @@ function graduationBsToAd_loop(numIds) {
         var englishDate = NepaliFunctions.BS2AD(nepaliDate);
         $('#graduation_year_ad' + i).val(englishDate);
     }
-}
+}  
 
 setInterval(function () {
     graduationBsToAd_loop(100)
