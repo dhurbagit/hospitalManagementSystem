@@ -11,9 +11,10 @@
         <li>@yield('title')</li>
     </ul>
     <div>
-        <a href="{{ route('trashfile') }}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> <i class="fas fa-trash"></i> Trash</a>
-    <a href="{{ route('department.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-plus"></i> Add</a>
+        <a href="{{ route('trashfile') }}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> <i
+                class="fas fa-trash"></i> Trash</a>
+        <a href="{{ route('department.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-plus"></i> Add</a>
     </div>
 </div>
 
@@ -57,9 +58,12 @@
                                         <a data-toggle="tooltip" data-placement="top" title="Edit"
                                             href="{{ route('department.edit', $data->id) }}"><i
                                                 class="far fa-edit"></i></a>
-                                        <a   href="#"
-                                            data-toggle="modal" data-target="#exampleModal_{{ $data->id }}"><i
-                                                class="fas fa-trash text-danger"></i></a>
+                                        @can('delete role')
+                                            <a href="#" data-toggle="modal"
+                                                data-target="#exampleModal_{{ $data->id }}"><i
+                                                    class="fas fa-trash text-danger"></i></a>
+                                        @endcan
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleModal_{{ $data->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">

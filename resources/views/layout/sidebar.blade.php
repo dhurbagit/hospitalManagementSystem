@@ -46,6 +46,11 @@
             <i class="far fa-user"></i>
             <span>Patient</span></a>
     </li>
+    <li class="nav-item {{(request()->routeIs('permission.*') ? 'active' : '')}}">
+        <a class="nav-link" href="{{ route('permission.index') }}">
+            <i class="far fa-user"></i>
+            <span>Role & Permission</span></a>
+    </li>
     <div class="sidebar-heading">
         Logout
     </div>

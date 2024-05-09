@@ -48,11 +48,17 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
-                                        <td>{{ $data->roles->name }}</td>
+                                        <td> 
+                                            @if(!empty($data->getRoleNames())) 
+                                                @foreach ($data->getRoleNames() as $rolename)
+                                                    <div class="badge badge-success">{{$rolename}}</div>
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td style="text-align: center">
                                              
                                             <a data-toggle="tooltip" data-placement="top" title="Edit" href="{{route('users.edit', $data->id)}}"><i class="far fa-edit"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Delete" href="" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i class="fas fa-trash text-danger"></i></a>
+                                            <a href="" data-toggle="modal" data-target="#exampleModal_{{$data->id}}"><i class="fas fa-trash text-danger"></i></a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal_{{$data->id}}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">

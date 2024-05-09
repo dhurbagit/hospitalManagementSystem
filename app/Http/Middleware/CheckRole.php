@@ -16,20 +16,23 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
- 
-        $user = Auth::user();
-       
-        if($user->role_id == 1){
-            return $next($request);
-        }
-        elseif($user->role_id == 2){
-           return redirect()->route('mainDoctorDashboard');
-        }
-        else{
-            return redirect()->back();
-        }
 
-      
-        
+        /** @var App\Models\User */
+        $users = Auth::user();
+
+        if ($users) {
+            // Check if the user has roles, and if they do not have the 'doctor' role
+            if ($users->hasRole(['doctor'])) {
+                return redirect()->route('mainDoctorDashboard');
+            }
+            else{
+                // dd($next($request));
+                 
+                return $next($request);
+            }
+        } else {
+            return redirect()->route('login');
+        }
+        abort(403);
     }
 }

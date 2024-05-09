@@ -16,12 +16,21 @@ class DoctorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-     
-        $user = Auth::user();
-        if($user->role_id == 2){
-            return $next($request);
+
+
+
+        /** @var App\Models\User */
+        $users = Auth::user();
+
+        if ($users) {
+            // Check if the user has roles 
+            if ($users->hasRole(['doctor'])) {
+                return $next($request);
+            }
+        } else {
+            return redirect()->route('login');
         }
-        else
-         return redirect()->back();
+        abort(403);
+       
     }
 }

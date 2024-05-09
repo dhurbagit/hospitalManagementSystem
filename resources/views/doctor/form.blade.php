@@ -25,12 +25,14 @@
         @endif
 
         @csrf
+
+        
         <div class="tab">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="image_thumbnail_wrapper">
                         <div class="img_wrapper">
-                            <img @if (isset($editDoctor)) src="{{ asset('uploads/' . $editDoctor->image) }}"
+                            <img @if (!empty(isset($editDoctor->image))) src="{{ asset('uploads/' . $editDoctor->image) }}"
                                 @else
                                 src="http://127.0.0.1:8000/backend/img/undraw_profile.svg" @endif
                                 alt="" id="placeholder_image">
@@ -173,15 +175,15 @@
 
                                         <div class="col-sm-12 edit_gender">
                                             Gender<span class="text-danger">*</span>: 
-                                            Male &nbsp;<input class="" type="radio" name="gender"
+                                             &nbsp;<input class="" type="radio" name="gender"
                                                 {{ isset($editDoctor->gender) && $editDoctor->gender == 'Male' ? 'checked' : '' }}
-                                                value="Male">
-                                            &nbsp;Female &nbsp;<input class="" type="radio" name="gender"
+                                                value="Male">Male
+                                            &nbsp; &nbsp;<input class="" type="radio" name="gender"
                                                 {{ isset($editDoctor->gender) && $editDoctor->gender == 'Female' ? 'checked' : '' }}
-                                                value="Female">
-                                            &nbsp;Other &nbsp;<input class="" type="radio" name="gender"
+                                                value="Female">Female
+                                            &nbsp; &nbsp;<input class="" type="radio" name="gender"
                                                 {{ isset($editDoctor->gender) && $editDoctor->gender == 'Other' ? 'checked' : '' }}
-                                                value="Other">
+                                                value="Other">Other
                                             @error('gender')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -541,7 +543,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="javascript:void(0)" id="add" class="btn btn-success">Add Academic Qualification</a>
+                    <a href="javascript:void(0)" id="add" class="btn btn-success">Add </a>
                 </div>
             </div>
         </div>

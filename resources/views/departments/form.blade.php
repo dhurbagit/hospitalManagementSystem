@@ -38,7 +38,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="form-text text-muted">Deprtment Code<span class="text-danger">*</span></label>
+                    <label class="form-text text-muted">Department Code<span class="text-danger">*</span></label>
                     <input placeholder="Deprtment Code" type="text" class="form-control" id="inputCode"
                         name="dept_code" value="{{ isset($showList) ? $showList->dept_code : old('dept_code') }}">
 
@@ -69,6 +69,7 @@
 
 
     </fieldset>
+    <br>
     @if (isset($showList))
         <button type="submit" class="btn btn-success">Update</button>
     @else

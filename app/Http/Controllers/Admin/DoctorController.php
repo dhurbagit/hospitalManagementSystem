@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class DoctorController extends Controller
 {
+    
+     
+        
+    
     /**
      * Display a listing of the resource.
      */

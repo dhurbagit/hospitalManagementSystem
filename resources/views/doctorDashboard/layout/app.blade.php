@@ -30,7 +30,11 @@
 </head>
 
 <body id="page-top">
-
+    <div id="overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -12,6 +13,10 @@ use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\DoctorDashboard\AppoinmentController;
 use App\Http\Controllers\DoctorDashboard\DoctorControllerD;
 use App\Http\Controllers\DoctorDashboard\DoctorScheduleController;
+use App\Http\Controllers\DoctorDashboard\settingController;
+use App\Http\Controllers\Roleandpermission\PermissionController;
+use App\Http\Controllers\Roleandpermission\RoleController;
+use App\Models\Admin\Role;
 use App\Models\Department;
 use App\Models\DoctorEducation;
 
@@ -27,9 +32,8 @@ use App\Models\DoctorEducation;
 */
 
 
-Route::middleware(['auth', 'role'])->group(function () {
+Route::middleware(['role:Super admin|admin'])->group(function () {
 
-     
     // dashboard
     Route::resource('dashboard', DashboardController::class)->names('dashboard');
 
@@ -52,10 +56,22 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::get('/getPorvince', [DoctorController::class, 'getProvince'])->name('getProvince');
     Route::post('deleteEducation', [DoctorController::class, 'deleteEducation'])->name('deleteEducation');
     Route::post('deleteExperience', [DoctorController::class, 'deleteExperience'])->name('deleteExperience');
+    
+    Route::resource('/admin-setting', AdminSettingController::class)->names('admin-setting');
+    
     // user 
     Route::resource('/users', UserController::class)->names('users');
 
     Route::resource('/patient', PatientController::class)->names('patient');
+
+    Route::resource('permission', PermissionController::class)->names('permission');
+    Route::resource('role', RoleController::class)->names('role');
+    Route::get('role/{roleId}/give-permission', [RoleController::class, 'addPermissionToRole']);
+    Route::put('role/{roleId}/give-permission', [RoleController::class, 'givePermissionToRole']);
+
+
+
+
 });
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -94,6 +110,8 @@ Route::middleware(['auth', 'doctorMiddleware'])->group(function () {
 
     Route::post('deleteDoctorEducation', [DoctorControllerD::class, 'deleteDoctorEducation'])->name('deleteDoctorEducation');
     Route::post('deleteDoctorExperience', [DoctorControllerD::class, 'deleteDoctorExperience'])->name('deleteDoctorExperience');
+
+    Route::resource('/setting', settingController::class)->names('setting');
 });
 
 Route::get('/notify', [AppoinmentController::class, 'notify']);

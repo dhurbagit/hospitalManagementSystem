@@ -25,8 +25,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
-        $roles = Role::all();
+        
+
+        $roles = Role::pluck('name','name')->all();
+        
         return view('user.form', compact('roles'));
     }
 
@@ -34,16 +36,19 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $input['name'] = $request->name;
-        $input['email'] = $request->email;
-        $input['password'] = Hash::make($request->password);
-        $input['role_id'] = $request->role_id;
+{
+    $input['name'] = $request->name;
+    $input['email'] = $request->email;
+    $input['password'] = Hash::make($request->password);
+    $input['role_id'] = '1'; // This line is not needed for role assignment
 
-        User::create($input);
+    $user = User::create($input);
 
-        return redirect()->route('users.index')->with('message', 'Successfully added New User');
-    }
+    // Assuming roles are stored as an array in the request (e.g., roles[0], roles[1], ...)
+    $user->syncRoles($request->roles);
+
+    return redirect()->route('users.index')->with('message', 'Successfully added New User with roles');
+}
 
     /**
      * Display the specified resource.
@@ -56,25 +61,25 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        $roles = Role::all();
-        $user =  User::findOrFail($id);
-        return view('user.form', compact('user', 'roles'));
+        $roles = Role::pluck('name', 'name')->all();
+        $selectedRole = $user->roles->pluck('name','name')->all();
+
+        return view('user.form', compact('user', 'roles', 'selectedRole'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
         // dd($request->all());
-        $updateUser = User::find($id);
-        
         $input = $request->all();
         if($input['password'] == null)unset($input['password']);
         
-        $updateUser->update($input);
+        $user->update($input);
+        $user->syncRoles($request->roles);
         return redirect()->route('users.index')->with('message', 'Successfully Updated User');
     }
 

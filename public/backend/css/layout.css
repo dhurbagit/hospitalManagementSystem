@@ -17,7 +17,7 @@ input {
   background-clip: padding-box;
   border: 1px solid #d1d3e2;
   border-radius: .35rem; */
-  
+
 }
 
 /* Mark input boxes that gets an error on validation: */
@@ -145,7 +145,7 @@ input.invalid {
   padding: 15px;
 }
 
- 
+
 /* ********************************************************** */
 .full_wrapper {
   margin-top: 150px;
@@ -183,7 +183,7 @@ fieldset.fieldSet_wrapper legend {
   color: #4268d6;
 }
 
-.thumbnail_image > input {
+.thumbnail_image>input {
   position: absolute;
   height: 100%;
   top: 0;
@@ -263,28 +263,33 @@ fieldset.fieldSet_wrapper legend {
   justify-content: center;
 }
 
-.required_label{
+.required_label {
   display: none;
 }
-.active_error + .required_label{
+
+.active_error+.required_label {
   display: block !important;
-  color:red;
+  color: red;
 }
-.hidden{
+
+.hidden {
   display: none !important;
 }
+
 .edit_gender {
   display: flex;
   align-items: center;
 }
-.table-responsive nav{
+
+.table-responsive nav {
   display: flex;
   justify-content: center;
 }
- 
+
 .breadcrumb_wrapper ul li {
   display: inline;
 }
+
 .breadcrumb_wrapper ul {
   padding-left: 0;
   margin-bottom: 0;
@@ -300,34 +305,40 @@ fieldset.fieldSet_wrapper legend {
   justify-content: space-between;
   align-items: center;
 }
-.breadcrumb_wrapper > a {
+
+.breadcrumb_wrapper>a {
   position: absolute;
   top: 7px;
   right: 7px;
 }
+
 /* **************************************************************** */
 .content_info_wrapper,
 .image_thumbnail_wrapper {
   background-color: #ffffff;
   padding: 15px;
   border-radius: 3px;
-  margin-bottom:30px;
+  margin-bottom: 30px;
 }
+
 .img_wrapper {
   padding: 30px;
   border-radius: 3px;
   overflow: hidden;
 }
+
 .image_thumbnail_wrapper input {
   padding: 4px;
   background-color: white;
   width: 100%;
   border-radius: 3px;
 }
+
 .img_wrapper img {
   width: 100%;
   border-radius: 3px;
 }
+
 .delete_wrapper {
   display: flex;
   align-items: center;
@@ -335,41 +346,49 @@ fieldset.fieldSet_wrapper legend {
   justify-content: center;
   border-left: 1px solid #3d63d2;
 }
+
 .deleteEducatioon {
   position: relative;
   top: -43px;
   right: -15px;
 }
+
 .academic_info .fieldSet_wrapper {
   margin-bottom: 30px;
 }
+
 a#glyphicon-remove {
   position: relative;
   bottom: -27px;
 }
+
 #step_circle {
   display: none;
 }
+
 .btn_group {
   margin-bottom: 30px;
 }
-.work_experience .fieldSet_wrapper {
+
+/* .work_experience .fieldSet_wrapper {
   margin-bottom: 30px;
-}
+} */
 a.deleteExperience {
   position: relative;
   top: -42px;
   right: -16px;
 }
+
 .doctor_table_badge {
   background-color: #3b61d1;
   font-size: 14px;
   font-weight: normal;
   color: white;
 }
-.form_wrapper_doctor input{
-  
-   width: 100%;
+
+.form_wrapper_doctor input {
+
+  width: 100%;
   display: block;
   width: 100%;
   height: calc(1.5em + .75rem + 2px);
@@ -383,41 +402,91 @@ a.deleteExperience {
   border: 1px solid #d1d3e2;
   border-radius: .35rem;
 }
-.form_wrapper_doctor input[type='radio']{
-  width:auto;
+
+.form_wrapper_doctor input[type='radio'] {
+  width: auto;
 }
 
 .status_badge.text-primary {
-    background-color: #4469d7;
-    border-radius: 5px;
-    color: white !important;
-    text-transform: capitalize;
+  background-color: #4469d7;
+  border-radius: 5px;
+  color: white !important;
+  text-transform: capitalize;
 }
 
 .status_badge.text-danger {
-    background-color: #e74a3b;
-    color: white !important;
-    text-transform: capitalize;
-    border-radius: 5px;
+  background-color: #e74a3b;
+  color: white !important;
+  text-transform: capitalize;
+  border-radius: 5px;
 }
+
 .form-group label {
   font-weight: 700;
 }
+
 .badge.table_badge.text-primary {
-  background-color: #4e73df!important;
+  background-color: #4e73df !important;
   color: white !important;
   font-size: 14px;
   width: 100%;
 }
+
 .badge.table_badge.text-success {
   background-color: #4edf66 !important;
   color: white !important;
   font-size: 14px;
   width: 100%;
 }
+
 .badge.table_badge.text-danger {
-  background-color: #ed4816!important;
+  background-color: #ed4816 !important;
   color: white !important;
   font-size: 14px;
   width: 100%;
+}
+
+/* ********************************************************************** */
+/* ********************************************************************** */
+#overlay {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+
+@keyframes sp-anime {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.is-hide {
+  display: none;
+}
+
+/* ********************************************************************** */
+/* ********************************************************************** */
+.deleteEducatioon,
+.deleteExperience {
+  color: red;
 }

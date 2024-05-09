@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,9 @@ class DashboardController extends Controller
         $department = Department::get();
         $doctor = Doctor::get();
         $user = User::get();
+        $patient = Patient::get();
 
-        return view('index', compact('department', 'doctor', 'user'));
+        return view('index', compact('department', 'doctor', 'user', 'patient'));
     }
 
     /**

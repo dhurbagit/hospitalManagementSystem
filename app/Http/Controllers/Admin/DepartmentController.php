@@ -11,10 +11,12 @@ use Exception;
 class DepartmentController extends Controller
 {
     protected $department;
+   
 
     public function __construct(Department $department)
     {
         $this->department = $department;
+        $this->middleware('permission:delete role', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
