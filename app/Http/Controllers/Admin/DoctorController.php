@@ -20,7 +20,13 @@ use Illuminate\Support\Facades\Redirect;
 class DoctorController extends Controller
 {
     
-     
+    public function __construct()
+    {
+        
+        $this->middleware('permission:create role', ['only' => ['create']]);
+        $this->middleware('permission:edit role', ['only' => ['edit']]);
+        $this->middleware('permission:delete role', ['only' => ['destroy']]);
+    }
         
     
     /**
@@ -66,7 +72,9 @@ class DoctorController extends Controller
         $input['name'] = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
         $input['role_id'] = 2;
         $user = User::create($input);
+        $user->syncRoles('doctor');
 
+       
         $input['user_id'] = $user->id;
         $doctor = Doctor::create($input);
 

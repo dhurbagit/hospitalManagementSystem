@@ -11,11 +11,13 @@ use Exception;
 class DepartmentController extends Controller
 {
     protected $department;
-   
+
 
     public function __construct(Department $department)
     {
         $this->department = $department;
+        $this->middleware('permission:create role', ['only' => ['create']]);
+        $this->middleware('permission:edit role', ['only' => ['edit']]);
         $this->middleware('permission:delete role', ['only' => ['destroy']]);
     }
     /**
@@ -114,14 +116,13 @@ class DepartmentController extends Controller
 
     public function trashPermanentDelete($id)
     {
-        try{
+        try {
 
-        
-        $forecDelte = Department::withTrashed()->find($id);
-        $forecDelte->forceDelete();
-        return redirect()->back()->with('message', 'file Deleted.');
-        }
-        catch(\Exception $e){
+
+            $forecDelte = Department::withTrashed()->find($id);
+            $forecDelte->forceDelete();
+            return redirect()->back()->with('message', 'file Deleted.');
+        } catch (\Exception $e) {
             return redirect()->back()->with('message', $e->getMessage());
         }
     }

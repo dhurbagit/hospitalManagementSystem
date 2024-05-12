@@ -17,20 +17,18 @@ class DoctorMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-
-
         /** @var App\Models\User */
         $users = Auth::user();
 
         if ($users) {
             // Check if the user has roles 
             if ($users->hasRole(['doctor'])) {
+                // dd('doctorMiddleware');
                 return $next($request);
             }
         } else {
             return redirect()->route('login');
         }
         abort(403);
-       
     }
 }

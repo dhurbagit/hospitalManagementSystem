@@ -36,21 +36,31 @@
             <i class="fas fa-user-md"></i>
             <span>Doctor</span></a>
     </li>
-    <li class="nav-item {{(request()->routeIs('users.*') ? 'active' : '')}}">
-        <a class="nav-link" href="{{ route('users.index') }}">
-            <i class="far fa-user"></i>
-            <span>User</span></a>
-    </li>
+    
     <li class="nav-item {{(request()->routeIs('patient.*') ? 'active' : '')}}">
         <a class="nav-link" href="{{ route('patient.index') }}">
             <i class="far fa-user"></i>
             <span>Patient</span></a>
     </li>
+     
     <li class="nav-item {{(request()->routeIs('permission.*') ? 'active' : '')}}">
-        <a class="nav-link" href="{{ route('permission.index') }}">
-            <i class="far fa-user"></i>
-            <span>Role & Permission</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Role & Permission</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Role & Permission:</h6>
+                <a class="collapse-item" href="{{ url('role')}}">Role</a>
+                <a class="collapse-item" href="{{ route('permission.index') }}">Permission</a>
+                <a class="collapse-item" href="{{ route('users.index') }}">User</a>
+                
+            </div>
+        </div>
     </li>
+
     <div class="sidebar-heading">
         Logout
     </div>

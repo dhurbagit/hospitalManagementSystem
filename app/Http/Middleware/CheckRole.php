@@ -21,8 +21,10 @@ class CheckRole
         $users = Auth::user();
 
         if ($users) {
+          
             // Check if the user has roles, and if they do not have the 'doctor' role
             if ($users->hasRole(['doctor'])) {
+                //  dd('checkrole middleware');
                 return redirect()->route('mainDoctorDashboard');
             }
             else{

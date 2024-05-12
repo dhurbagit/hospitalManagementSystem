@@ -32,7 +32,7 @@ use App\Models\DoctorEducation;
 */
 
 
-Route::middleware(['role:Super admin|admin'])->group(function () {
+Route::middleware(['checkRole', 'role:Super admin|admin'])->group(function () {
 
     // dashboard
     Route::resource('dashboard', DashboardController::class)->names('dashboard');
@@ -75,11 +75,6 @@ Route::middleware(['role:Super admin|admin'])->group(function () {
 });
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-
-
-
-
 // Route::middleware('guest')->group(function () {
 //     Route::get('/login', function () {
 //         return view('login.index');
@@ -89,9 +84,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // });
 
 
-
-
-Route::middleware(['auth', 'doctorMiddleware'])->group(function () {
+Route::middleware(['doctorMiddleware' ,'role:doctor'])->group(function () {
     // doctorDashboard
     Route::get('doctor-dashboard', function(){
         return view('doctorDashboard.dashboard');

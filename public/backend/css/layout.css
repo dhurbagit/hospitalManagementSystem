@@ -490,3 +490,8 @@ a.deleteExperience {
 .deleteExperience {
   color: red;
 }
+.permission_form input {
+  width: auto;
+  display: inline;
+  vertical-align: middle;
+}
